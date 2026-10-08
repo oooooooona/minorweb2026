@@ -23,13 +23,31 @@
 body {
   /* Het lettertype van het systeem van de lezer. Geen download nodig. */
   font-family: system-ui, sans-serif;
-  line-height: 1.4;
   margin: 0;
   padding: 1rem;
+  text-align: center;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
 }
 
 a {
   color: inherit;
+}
+
+.editie-01 footer a {
+  display: inline-flex;
+  align-items: left;
+  color: #ff0084;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color 160ms ease, transform 160ms ease;
+}
+
+.editie-01 footer a:hover {
+  color: #7300ff;
 }
 
 /* Overzicht */
@@ -37,13 +55,17 @@ a {
 .edities {
   list-style: none;
   padding: 0;
+  color:#ff3e6b;
 }
 
 .edities a {
   display: flex;
   gap: 1rem;
   text-decoration: none;
+  color:#E6D9F2;
+
 }
+
 
 /* Editie 01. Focus: het scherm.
    100vh is de hoogte van het venster. Deze pagina mag niet hoger worden dan dat.
@@ -52,4 +74,127 @@ a {
 .editie-01 {
   min-height: 100vh;
   box-sizing: border-box;
+  background-color: #FFF0D3;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;           
+  width: 100vw;
+  box-sizing: border-box;
+  margin: 0;             
+}
+
+.editie-01[data-background="1"] {
+  background-color: #D8F3DC;
+}
+
+.editie-01[data-background="2"] {
+  background-color: #DDEBFF;
+}
+
+.editie-01[data-background="3"] {
+  background-color: #FADADD;
+}
+
+.editie-01[data-background="4"] {
+  background-color: #E6D9F2;
+}
+
+.editie-01 header {
+  display: flex;
+  flex-direction: column;
+}
+
+.editie-01 h1 {
+  display: flex;
+  box-sizing: border-box;
+  margin: 0;
+  font-size: clamp(3rem, min(26vw, 24vh), 30rem);
+  font-weight: bold;
+  text-align: right;
+  line-height: 1;
+}
+
+.editie-01 h1 button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #BB85A5;
+  font: inherit;
+  text-align: inherit;
+  white-space: normal;
+  cursor: pointer;
+}
+
+.editie-01 h1 button span {
+  display: block;
+  white-space: nowrap;
+}
+
+.editie-01 h1 button .fit-width {
+  transform-origin: right center;
+}
+
+.editie-01 h1 button[data-color="1"] {
+  color: #ff3e6b;
+}
+
+.editie-01 h1 button[data-color="2"] {
+  color: #cb9e2c;
+}
+
+.editie-01 h1 button[data-color="3"] {
+  color: #578aff;
+}
+
+.editie-01 h1 button[data-color="4"] {
+  color: #deff09;
+}
+
+.editie-01 p {
+  text-align: center;
+  font-size: 1 rem;
+  font-weight: 800;
+  margin: 0;
+  color: #856a00;
+}
+
+.editie-01 main {
+  margin-top: 0.5rem;
+  overflow: hidden;
+}
+
+.editie-01 .ingredients-marquee {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.editie-01 .ingredients-marquee span {
+  display: inline-block;
+  animation: ingredients-marquee 12s linear infinite;
+}
+
+@keyframes ingredients-marquee {
+  from {
+    transform: translateX(calc(-100% - 100vw));
+  }
+
+  to {
+    transform: translateX(100vw);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .editie-01 .ingredients-marquee span {
+    animation: none;
+  }
+}
+
+.editie-01 footer {
+  margin-top: 0.5rem;
 }
