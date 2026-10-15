@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#e9141c">
+  <title>editie 3 - crêpes </title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f1f1f1;
+      color: #ed171f;
+      font-synthesis: none;
+      text-rendering: optimizeLegibility;
+      --red: #ed171f;
+      --white: #fffdfa;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-width: 320px;
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      padding: 3.5vh 2vw;
+    }
+
+    .scene {
+      position: relative;
+      width: min(94vw, 105vh, 1400px);
+      aspect-ratio: 1.19;
+      overflow: hidden;
+      background: var(--white) url("../beeld/image%206.png") center / cover no-repeat;
+      box-shadow: 0 2px 16px rgb(0 0 0 / 8%);
+      isolation: isolate;
+    }
+
+    h1 {
+      position: absolute;
+      z-index: 3;
+      top: 40%;
+      left: 10.5%;
+      margin: 0;
+      color: var(--red);
+      font-size: clamp(1.5rem, 3.4vw, 3.5rem);
+      font-weight: 900;
+      letter-spacing: -0.07em;
+      line-height: 1;
+      transform: rotate(-7deg);
+      -webkit-text-stroke: 0.1em var(--white);
+      paint-order: stroke fill;
+      text-shadow: 2px 3px 0 var(--white);
+    }
+
+    .crepe {
+      position: absolute;
+      z-index: 1;
+      display: block;
+      width: 46%;
+      height: auto;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .desktop-crepe-one {
+      top: -2%;
+      left: -7%;
+      transform: rotate(-10deg);
+    }
+
+    .desktop-crepe-two {
+      top: 2%;
+      left: 62%;
+      transform: rotate(9deg);
+    }
+
+    .desktop-crepe-three {
+      top: 34%;
+      left: 28%;
+      transform: rotate(-5deg);
+    }
+
+    .favorites {
+      position: absolute;
+      z-index: 4;
+      right: 4%;
+      bottom: 7%;
+      left: 4%;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 3%;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .favorite {
+      position: relative;
+      aspect-ratio: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      padding: 12%;
+      color: var(--red);
+      text-align: center;
+    }
+
+    .favorite img {
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .favorite-number,
+    .favorite-name {
+      position: relative;
+      z-index: 1;
+      font-size: clamp(0.7rem, 1.2vw, 1rem);
+      line-height: 1.35;
+    }
+
+    .favorite-number {
+      font-weight: 700;
+    }
+
+    .favorite-name {
+      max-width: 90%;
+    }
+
+    .mobile-crepe {
+      display: none;
+    }
+
+    @media (max-width: 700px) {
+      :root {
+        color-scheme: dark;
+        background: var(--red);
+      }
+
+      body {
+        display: block;
+        padding: 0;
+        background: var(--red);
+        color: var(--white);
+      }
+
+      .scene {
+        width: 100%;
+        min-height: 100svh;
+        aspect-ratio: auto;
+        overflow: hidden;
+        background: var(--red);
+        box-shadow: none;
+      }
+
+      h1 {
+        top: 4%;
+        left: 7%;
+        color: var(--white);
+        font-size: clamp(1.4rem, 7vw, 2.1rem);
+        letter-spacing: -0.03em;
+        transform: none;
+        -webkit-text-stroke: 0;
+        text-shadow: none;
+      }
+
+      .desktop-crepe-one,
+      .desktop-crepe-two,
+      .desktop-crepe-three {
+        display: none;
+      }
+
+      .mobile-crepe {
+        display: block;
+        width: 39%;
+      }
+
+      .mobile-crepe-one {
+        top: 12%;
+        left: 36%;
+      }
+
+      .mobile-crepe-two {
+        top: 27%;
+        left: -12%;
+      }
+
+      .mobile-crepe-three {
+        top: 41%;
+        left: 7%;
+      }
+
+      .mobile-crepe-four {
+        top: 61%;
+        left: 56%;
+      }
+
+      .mobile-crepe-five {
+        top: 80%;
+        left: -6%;
+      }
+
+      .favorites {
+        right: 7%;
+        bottom: 4%;
+        left: 7%;
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+
+      .favorite {
+        min-height: 44px;
+        aspect-ratio: auto;
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 0.65rem;
+        padding: 0.25rem 0;
+        border-top: 1px solid rgb(255 253 250 / 46%);
+        color: var(--white);
+        text-align: left;
+      }
+
+      .favorite:last-child {
+        border-bottom: 1px solid rgb(255 253 250 / 46%);
+      }
+
+      .favorite img {
+        display: none;
+      }
+
+      .favorite-number,
+      .favorite-name {
+        font-size: 0.78rem;
+      }
+
+      .favorite-number {
+        width: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="scene" aria-labelledby="page-title">
+    <h1 id="page-title">CRÊPES</h1>
+
+    <img class="crepe desktop-crepe-one" src="../beeld/image%203.png" alt="" aria-hidden="true">
+    <img class="crepe desktop-crepe-two" src="../beeld/image%203.png" alt="" aria-hidden="true">
+    <img class="crepe desktop-crepe-three" src="../beeld/image%203.png" alt="" aria-hidden="true">
+
+    <img class="crepe mobile-crepe mobile-crepe-one" src="../beeld/image%203.png" alt="" aria-hidden="true">
+    <img class="crepe mobile-crepe mobile-crepe-two" src="../beeld/image%203.png" alt="" aria-hidden="true">
+    <img class="crepe mobile-crepe mobile-crepe-three" src="../beeld/image%203.png" alt="" aria-hidden="true">
+    <img class="crepe mobile-crepe mobile-crepe-four" src="../beeld/image%203.png" alt="" aria-hidden="true">
+    <img class="crepe mobile-crepe mobile-crepe-five" src="../beeld/image%203.png" alt="" aria-hidden="true">
+
+    <ol class="favorites" aria-label="Mijn drie favoriete toppings">
+      <li class="favorite">
+        <img src="../beeld/image%2010.png" alt="" aria-hidden="true">
+        <span class="favorite-number">topping 1</span>
+        <span class="favorite-name">boter + bruine suiker</span>
+      </li>
+      <li class="favorite">
+        <img src="../beeld/image%2010.png" alt="" aria-hidden="true">
+        <span class="favorite-number">topping 2</span>
+        <span class="favorite-name">aardbeienconfituur</span>
+      </li>
+      <li class="favorite">
+        <img src="../beeld/image%2010.png" alt="" aria-hidden="true">
+        <span class="favorite-number">topping 3</span>
+        <span class="favorite-name">poedersuiker</span>
+      </li>
+    </ol>
+  </main>
+</body>
+</html>
