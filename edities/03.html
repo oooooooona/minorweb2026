@@ -21,33 +21,45 @@
       box-sizing: border-box;
     }
 
+    /* layout that adapts to any viewport size */
+    html, body {
+      height: 100svh; /* use the small viewport height to avoid mobile UI issues */
+    }
+
     body {
       min-width: 320px;
-      min-height: 100vh;
       margin: 0;
       display: grid;
       place-items: center;
-      padding: 3.5vh 2vw;
+      padding: clamp(1vh, 3.5vh, 4vh) clamp(2vw, 3vw, 4vw);
+      background: transparent;
     }
 
     .scene {
       position: relative;
-      width: min(94vw, 105vh, 1400px);
-      aspect-ratio: 1.19;
+      /* Keep the scene within the viewport: max 100% width and not taller than viewport */
+      width: min(94vw, 1200px);
+      max-width: 100%;
+      /* preserve an easy-to-manage aspect ratio on larger screens */
+      aspect-ratio: 1.19 / 1;
+      /* limit height so the scene never overflows the viewport */
+      max-height: calc(100svh - 2 * clamp(1vh, 3.5vh, 4vh));
       overflow: hidden;
       background: var(--white) url("../beeld/image%206.png") center / cover no-repeat;
       box-shadow: 0 2px 16px rgb(0 0 0 / 8%);
       isolation: isolate;
+      margin: 0 auto;
     }
 
+    /* Title scales and stays readable on all sizes */
     h1 {
       position: absolute;
       z-index: 3;
-      top: 40%;
-      left: 10.5%;
+      top: clamp(18%, 30%, 40%);
+      left: clamp(6%, 10.5%, 12%);
       margin: 0;
       color: var(--red);
-      font-size: clamp(1.5rem, 3.4vw, 3.5rem);
+      font-size: clamp(1.4rem, 3.4vw, 3.5rem);
       font-weight: 900;
       letter-spacing: -0.07em;
       line-height: 1;
@@ -55,13 +67,15 @@
       -webkit-text-stroke: 0.1em var(--white);
       paint-order: stroke fill;
       text-shadow: 2px 3px 0 var(--white);
+      pointer-events: none;
     }
 
+    /* crepe images sized relative to the scene so they always fit */
     .crepe {
       position: absolute;
       z-index: 1;
       display: block;
-      width: 46%;
+      width: clamp(28%, 38%, 46%);
       height: auto;
       pointer-events: none;
       user-select: none;
@@ -143,6 +157,7 @@
       display: none;
     }
 
+    /* Small screens: make the scene fill the viewport height and flow naturally */
     @media (max-width: 700px) {
       :root {
         color-scheme: dark;
@@ -154,15 +169,18 @@
         padding: 0;
         background: var(--red);
         color: var(--white);
+        min-height: 100svh;
       }
 
       .scene {
         width: 100%;
+        height: 100svh;
         min-height: 100svh;
         aspect-ratio: auto;
         overflow: hidden;
         background: var(--red);
         box-shadow: none;
+        display: block;
       }
 
       h1 {
@@ -184,7 +202,7 @@
 
       .mobile-crepe {
         display: block;
-        width: 39%;
+        width: clamp(28%, 39%, 48%);
       }
 
       .mobile-crepe-one {
