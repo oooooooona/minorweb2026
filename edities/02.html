@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f1e5cf">
+  <title>editie 02 - tiramisu</title>
+  <style>
+    :root {
+      color-scheme: light;
+      background: #f1e5cf;
+      font-family: Arial, Helvetica, sans-serif;
+      font-synthesis: none;
+      text-rendering: optimizeLegibility;
+      --coffee: #3e241d;
+      --cream: #f1e5cf;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-width: 320px;
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    .composition {
+      position: relative;
+      width: min(100vw, 130vh);
+      height: min(100svh, 76vw);
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .dessert {
+      display: block;
+      width: min(88%, 110vh, 1000px);
+      max-height: 88%;
+      object-fit: contain;
+    }
+
+    h1 {
+      position: absolute;
+      z-index: 1;
+      right: 6%;
+      bottom: 9%;
+      margin: 0;
+      color: var(--coffee);
+      font-size: clamp(4.5rem, 12vw, 10rem);
+      font-weight: 900;
+      letter-spacing: -0.11em;
+      line-height: 0.76;
+      text-align: right;
+      text-shadow: 0.035em 0.035em 0 var(--cream), -0.025em -0.025em 0 var(--cream);
+    }
+
+    h1 span {
+      display: block;
+    }
+
+    @media (max-width: 680px) {
+      .composition {
+        width: 100vw;
+        height: 100svh;
+        min-height: 100svh;
+      }
+
+      .dessert {
+        width: 100%;
+        max-height: 76%;
+      }
+
+      h1 {
+        right: 5%;
+        bottom: 15%;
+        font-size: clamp(4rem, 17vw, 6.5rem);
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="composition" aria-labelledby="title">
+    <img class="dessert" src="../beeld/tiramisu.png" alt="Tiramisu met cacao en mascarpone">
+    <h1 id="title"><span>tira</span><span>miss you</span></h1>
+  </main>
+</body>
+</html>
