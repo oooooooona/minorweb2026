@@ -2,61 +2,184 @@
 <html lang="nl">
 <head>
   <meta charset="utf-8">
-  <!-- Zonder deze regel toont een telefoon je pagina als een verkleinde desktoppagina. -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- De titel in het tabblad van de browser. Vervang door je onderwerp. -->
-  <title>desserts</title>
-  </title>
+  <meta name="theme-color" content="#f4f4f4">
+  <title>Desserts of the week</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .overzicht *,
+    .overzicht *::before,
+    .overzicht *::after {
+      box-sizing: border-box;
+    }
+
+    .overzicht {
+      box-sizing: border-box;
+      min-width: 320px;
+      min-height: 100vh;
+      margin: 0;
+      padding: 8px;
+      overflow-x: hidden;
+      background: #ffffff;
+      color: #ff0084;
+      font-family: Arial, Helvetica, sans-serif;
+      text-align: left;
+    }
+
+    .overzicht header {
+      width: min(86vw, 900px);
+      min-height: 122px;
+      margin: 0 auto;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 0 0 18px;
+    }
+
+    .overzicht h1 {
+      margin: 0;
+      color: #ff0084;
+      font-size: clamp(1.15rem, 2vw, 1.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      text-align: right;
+    }
+
+    .overzicht main {
+      width: min(86vw, 900px);
+      min-height: calc(100svh - 138px);
+      margin: 0 auto;
+      padding: clamp(1.3rem, 4vw, 2.6rem);
+      border: 1px solid #ff0084;
+      background: #fff;
+    }
+
+    .overzicht .edities {
+      display: flex;
+      align-items: flex-start;
+      gap: 22px;
+      margin: 0;
+      padding: 0;
+      color: inherit;
+      list-style: none;
+    }
+
+    .overzicht .edities li {
+      display: contents;
+    }
+
+    .overzicht .edities a {
+      width: 48px;
+      height: clamp(260px, 61vh, 470px);
+      flex: 0 0 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 8px;
+      border: 1px solid currentColor;
+      background: #fff;
+      color: #ff0084;
+      font-size: clamp(0.9rem, 1.8vw, 1.15rem);
+      font-weight: 600;
+      line-height: 1.2;
+      text-decoration: none;
+      transition: transform 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
+      transform-origin: center;
+    }
+
+    .overzicht .edities li:nth-child(2) a {
+      color: #e436bb;
+    }
+
+    .overzicht .edities li:nth-child(3) a {
+      color: #ff0000;
+    }
+
+    .overzicht .edities a:hover,
+    .overzicht .edities a:focus-visible {
+      z-index: 1;
+      transform: scale(1.08);
+      box-shadow: 0 10px 24px rgb(0 0 0 / 14%);
+      background: #fff9fc;
+    }
+
+    .overzicht .edition-label {
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      white-space: nowrap;
+    }
+
+    .overzicht .edities li:nth-child(2) a:hover,
+    .overzicht .edities li:nth-child(2) a:focus-visible {
+      background: #fff8f4;
+    }
+
+    .overzicht .edities li:nth-child(3) a:hover,
+    .overzicht .edities li:nth-child(3) a:focus-visible {
+      background: #f7f8ff;
+    }
+
+    @media (max-width: 600px) {
+      .overzicht header,
+      .overzicht main {
+        width: 94vw;
+      }
+
+      .overzicht header {
+        min-height: 100px;
+        padding-bottom: 14px;
+      }
+
+      .overzicht main {
+        min-height: calc(100svh - 116px);
+        padding: 1.2rem;
+      }
+
+      .overzicht .edities {
+        gap: 14px;
+      }
+
+      .overzicht .edities a {
+        width: 42px;
+        height: clamp(240px, 55svh, 430px);
+        flex-basis: 42px;
+        padding: 8px 5px;
+        font-size: 0.86rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .overzicht .edities a {
+        transition: none;
+      }
+    }
+  </style>
 </head>
 <body class="overzicht">
-
-  <!--
-    NEVER FINISHED
-    Minor Webdesign, LUCA Gent, 2026-2027
-
-    Dit is je OVERZICHT: de pagina die al je edities toont en samenhoudt.
-    Alles hieronder is een voorbeeld. Vervang het door je eigen onderwerp.
-
-    Elke les komt hier één editie bij, en één nieuwe eis voor dit overzicht.
-  -->
-
   <header>
-    <!-- Je onderwerp. -->
     <h1>desserts of the week</h1>
-
-    <!-- Wat één editie is. Leg het vast in les 01. -->
-    <p>elke editie is een nieuw dessert dat we deze week gaan maken.</p>
   </header>
 
   <main>
-    <!--
-      De lijst met edities. Elke editie is één regel met een link naar haar eigen pagina.
-      Een editie toevoegen: kopieer een <li> ... </li>, pas nummer, datum en link aan.
-      Nieuwste bovenaan of onderaan? Dat beslis jij. Zeg waarom.
-    -->
-    <ol class="edities">
-      <li>
-        <a href="edities/01.html">
-          <span class="nummer">01</span>
-          <time datetime="2026-10-01">1 oktober 2026</time>
-          <span class="focus">scherm</span>
-        </a>
-
-        <a href="edities/02.html">
-          <span class="nummer">02</span>
-          <time datetime="2026-10-08">8 oktober 2026</time>
-          <span class="focus">beeld</span>
-        </a>
-
-          <a href="edities/03.html">
-          <span class="nummer">03</span>
-          <time datetime="2026-10-15">15 oktober 2026</time>
-          <span class="focus">crêpes</span>
-        </a>
-      </li>
-    </ol>
+    <nav aria-label="Edities">
+      <ol class="edities">
+        <li>
+          <a href="edities/01.html" aria-label="Editie 01: apple crumble cake">
+            <span class="edition-label">editie 01 - apple crumble cake</span>
+          </a>
+        </li>
+        <li>
+          <a href="edities/02.html" aria-label="Editie 02: tira mis you">
+            <span class="edition-label">editie 02 - tira mis you</span>
+          </a>
+        </li>
+        <li>
+          <a href="edities/03.html" aria-label="Editie 03: crêpes">
+            <span class="edition-label">editie 03 - crêpes</span>
+          </a>
+        </li>
+      </ol>
+    </nav>
   </main>
-
 </body>
 </html>
