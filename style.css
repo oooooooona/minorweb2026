@@ -1,68 +1,602 @@
-/*
-  NEVER FINISHED
-  style.css: de vormgeving van je overzicht en al je edities.
-
-  Een CSS-regel werkt zo:
-
-    selector {
-      eigenschap: waarde;
-    }
-
-  De selector zegt WAT je vormgeeft (h1, .edities, time).
-  De eigenschap zegt WELK aspect (font-size, color, margin).
-  De waarde zegt HOE (2rem, black, 0).
-
-  Elke editie heeft een eigen class op <body>: .editie-01, .editie-02, ...
-  Zo kun je per editie andere regels schrijven zonder de andere te raken:
-
-    .editie-01 h1 { font-size: 12vw; }
-
-  Vaste regel tot les 05: geen position: absolute. Vanaf les 05 is positie de inhoud.
-*/
-
 body {
-  /* Het lettertype van het systeem van de lezer. Geen download nodig. */
-  font-family: system-ui, sans-serif;
-  line-height: 1.4;
   margin: 0;
-  padding: 1rem;
 }
 
 a {
   color: inherit;
 }
 
-/* Overzicht */
-
-.edities {
-  list-style: none;
-  padding: 0;
-}
-
-.edities a {
+.overview {
   display: flex;
-  gap: 1rem;
-  text-decoration: none;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: clamp(0.5rem, 2vh, 1.5rem);
+  overflow-x: hidden;
+  background-color: #c9f9ff;
+  text-align: center;
 }
 
-/* Editie 01. Focus: het scherm.
-   100vh is de hoogte van het venster. Deze pagina mag niet hoger worden dan dat.
-   Tip: vraag AI wat clamp() doet met een lettergrootte. */
+.overview header {
+  position: relative;
+  z-index: 1;
+}
+
+.overview h1 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.5rem, 4vw, 3rem);
+}
+
+.overview main {
+  display: grid;
+  flex: 1;
+  place-items: center;
+  width: 100%;
+  min-height: 0;
+}
+
+.overview .table-scene {
+  position: relative;
+  width: min(92vw, 1156px, 125vh);
+  aspect-ratio: 1156 / 672;
+  background: url("beeld/table 02.png") center / 100% 100% no-repeat;
+}
+
+.overview .txt {
+  position: absolute;
+  top: 50%;
+  width: 18%;
+  transform: translate(-50%, -50%);
+}
+
+.overview .txt a {
+  display: block;
+}
+
+.overview .txt img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.overview .txt span {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  padding: 0.1em 0.25em;
+  color: yellow;
+  font-size: clamp(0.65rem, 1.3vw, 1rem);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 160ms ease;
+}
+
+.overview .txt:hover span,
+.overview .txt:focus-within span {
+  opacity: 1;
+}
+
+.overview .edition-01 {
+  left: 23%;
+}
+
+.overview .edition-02 {
+  left: 41%;
+}
+
+.overview .edition-03 {
+  left: 59%;
+}
+
+.overview .edition-04 {
+  left: 77%;
+}
+
+.overview .label-01 {
+  background-color: rgb(180, 72, 219);
+}
+
+.overview .label-02 {
+  background-color: rgb(255, 115, 211);
+}
+
+.overview .label-03 {
+  background-color: rgb(25, 0, 255);
+}
+
+.overview .label-04 {
+  background-color: rgb(255, 0, 204);
+}
+
+@media (hover: none) {
+  .overview .txt span {
+    opacity: 1;
+  }
+}
+
+.editie-01 footer a {
+  display: inline-flex;
+  align-items: center;
+  color: #ff0084;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color 160ms ease, transform 160ms ease;
+}
+
+.editie-01 footer a:hover {
+  color: #7300ff;
+}
 
 .editie-01 {
-  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   box-sizing: border-box;
-  background-color:bisque;
+  width: 100%;
+  min-height: 100vh;
+  height: 100vh;
+  background-color: #fff0d3;
 }
 
-/* Stijlen voor de hoofdtitel */
+.editie-01[data-background="1"] {
+  background-color: #d8f3dc;
+}
+
+.editie-01[data-background="2"] {
+  background-color: #ddebff;
+}
+
+.editie-01[data-background="3"] {
+  background-color: #fadadd;
+}
+
+.editie-01[data-background="4"] {
+  background-color: #e6d9f2;
+}
+
+.editie-01 header {
+  display: flex;
+  flex-direction: column;
+}
+
 .editie-01 h1 {
-  font-size: clamp(1.8rem, 1rem + 3vw, 12vw);
-  line-height: 1.2;
+  display: flex;
+  box-sizing: border-box;
+  margin: 0;
+  font-size: clamp(3rem, min(26vw, 24vh), 30rem);
+  font-weight: bold;
+  text-align: right;
+  line-height: 1;
 }
 
-/* Stijlen voor gewone paragrafen */
+.editie-01 h1 button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #bb85a5;
+  font: inherit;
+  text-align: inherit;
+  white-space: normal;
+  cursor: pointer;
+}
+
+.editie-01 h1 button span {
+  display: block;
+  white-space: nowrap;
+}
+
+.editie-01 h1 button .fit-width {
+  transform-origin: right center;
+}
+
+.editie-01 h1 button[data-color="1"] {
+  color: #ff3e6b;
+}
+
+.editie-01 h1 button[data-color="2"] {
+  color: #cb9e2c;
+}
+
+.editie-01 h1 button[data-color="3"] {
+  color: #578aff;
+}
+
+.editie-01 h1 button[data-color="4"] {
+  color: #deff09;
+}
+
 .editie-01 p {
-  font-size: clamp(1rem, 2.5vw, 1.25rem);
-  line-height: 1.6;
+  margin: 0;
+  color: #856a00;
+  font-size: 1rem;
+  font-weight: 800;
+  text-align: center;
+}
+
+.editie-01 main {
+  margin-top: 0.5rem;
+  overflow: hidden;
+}
+
+.editie-01 .ingredients-marquee {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.editie-01 .ingredients-marquee span {
+  display: inline-block;
+  animation: ingredients-marquee 12s linear infinite;
+}
+
+@keyframes ingredients-marquee {
+  from {
+    transform: translateX(calc(-100% - 100vw));
+  }
+
+  to {
+    transform: translateX(100vw);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .editie-01 .ingredients-marquee span {
+    animation: none;
+  }
+}
+
+.editie-01 footer {
+  margin-top: 0.5rem;
+}
+
+.editie-02 {
+  color-scheme: light;
+  min-width: 320px;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: #ff08ff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  --coffee: #ffeaf9;
+  --cream: #fae9cd;
+}
+
+.editie-02,
+.editie-02 *,
+.editie-03,
+.editie-03 * {
+  box-sizing: border-box;
+}
+
+.editie-02 .composition {
+  position: relative;
+  width: min(100vw, 130vh);
+  height: min(100svh, 76vw);
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.editie-02 .dessert {
+  display: block;
+  width: min(88%, 110vh, 1000px);
+  max-height: 88%;
+  object-fit: contain;
+}
+
+.editie-02 h1 {
+  position: absolute;
+  z-index: 1;
+  right: 6%;
+  bottom: 9%;
+  margin: 0;
+  color: var(--coffee);
+  font-size: clamp(4.5rem, 12vw, 10rem);
+  font-weight: 900;
+  letter-spacing: -0.11em;
+  line-height: 0.76;
+  text-align: right;
+}
+
+.editie-02 h1 span {
+  display: block;
+}
+
+@media (max-width: 680px) {
+  .editie-02 .composition {
+    width: 100vw;
+    height: 100svh;
+    min-height: 100svh;
+  }
+
+  .editie-02 .dessert {
+    width: 100%;
+    max-height: 76%;
+  }
+
+  .editie-02 h1 {
+    right: 5%;
+    bottom: 15%;
+    font-size: clamp(4rem, 17vw, 6.5rem);
+  }
+}
+
+.editie-03 {
+  color-scheme: light;
+  min-width: 320px;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 3.5vh 2vw;
+  background: #f1f1f1;
+  color: #ed171f;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  --red: #ed171f;
+  --white: #fffdfa;
+}
+
+.editie-03 .scene {
+  position: relative;
+  width: min(94vw, 105vh, 1400px);
+  aspect-ratio: 1.19;
+  overflow: hidden;
+  background: var(--white) url("beeld/gingham-02.jpg") center / cover no-repeat;
+  box-shadow: 0 2px 16px rgb(0 0 0 / 8%);
+  isolation: isolate;
+}
+
+.editie-03 h1 {
+  position: absolute;
+  z-index: 3;
+  top: 40%;
+  left: 10.5%;
+  margin: 0;
+  color: var(--red);
+  font-size: clamp(1.5rem, 3.4vw, 3.5rem);
+  font-weight: 900;
+  letter-spacing: -0.07em;
+  line-height: 1;
+  transform: rotate(-7deg);
+  -webkit-text-stroke: 0.1em var(--white);
+  paint-order: stroke fill;
+  text-shadow: 2px 3px 0 var(--white);
+}
+
+.editie-03 .crepe {
+  position: absolute;
+  z-index: 1;
+  display: block;
+  width: 46%;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+}
+
+.editie-03 .desktop-crepe-one {
+  top: -2%;
+  left: -7%;
+  transform: rotate(-10deg);
+}
+
+.editie-03 .desktop-crepe-two {
+  top: 2%;
+  left: 62%;
+  transform: rotate(9deg);
+}
+
+.editie-03 .desktop-crepe-three {
+  top: 34%;
+  left: 28%;
+  transform: rotate(-5deg);
+}
+
+.editie-03 .favorites {
+  position: absolute;
+  z-index: 4;
+  right: 4%;
+  bottom: 7%;
+  left: 4%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 3%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.editie-03 .favorite {
+  position: relative;
+  aspect-ratio: 1;
+  perspective: 1000px;
+}
+
+.editie-03 .plate-card {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--red);
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transition: transform 650ms cubic-bezier(0.2, 0.75, 0.25, 1);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.editie-03 .plate-card:focus-visible {
+  outline: 3px solid var(--red);
+  outline-offset: 5px;
+}
+
+.editie-03 .plate-card.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.editie-03 .plate-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 50%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.editie-03 .plate-front img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+}
+
+.editie-03 .plate-back {
+  transform: rotateY(180deg);
+}
+
+.editie-03 .plate-back img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+}
+
+.editie-03 .plate-back .favorite-name {
+  position: absolute;
+  inset: 27% 19%;
+  display: grid;
+  place-content: center;
+  padding: 0.2rem;
+  color: var(--red);
+}
+
+.editie-03 .favorite-name {
+  position: relative;
+  z-index: 1;
+  max-width: 95%;
+  font-size: clamp(0.68rem, 1.2vw, 1rem);
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.editie-03 .mobile-crepe {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .editie-03 {
+    color-scheme: dark;
+    padding: 0;
+    background: var(--red);
+  }
+
+  .editie-03 .scene {
+    width: 100%;
+    min-height: 100svh;
+    aspect-ratio: auto;
+    display: flow-root;
+    overflow: hidden;
+    background: var(--red) url("beeld/gingham-01.jpg") center / cover no-repeat;
+    box-shadow: none;
+    color: var(--white);
+  }
+
+  .editie-03 h1 {
+    top: 4%;
+    left: 7%;
+    color: var(--white);
+    font-size: clamp(1.4rem, 7vw, 2.1rem);
+    letter-spacing: -0.03em;
+    transform: none;
+    -webkit-text-stroke: 0;
+    text-shadow: none;
+  }
+
+  .editie-03 .desktop-crepe-one,
+  .editie-03 .desktop-crepe-two,
+  .editie-03 .desktop-crepe-three {
+    display: none;
+  }
+
+  .editie-03 .mobile-crepe {
+    display: block;
+    width: 39%;
+  }
+
+  .editie-03 .mobile-crepe-one {
+    top: 12svh;
+    left: 36%;
+  }
+
+  .editie-03 .mobile-crepe-two {
+    top: 27svh;
+    left: -12%;
+  }
+
+  .editie-03 .mobile-crepe-three {
+    top: 41svh;
+    left: 7%;
+  }
+
+  .editie-03 .mobile-crepe-four {
+    top: 61svh;
+    left: 56%;
+  }
+
+  .editie-03 .mobile-crepe-five {
+    top: 80svh;
+    left: -6%;
+  }
+
+  .editie-03 .favorites {
+    position: relative;
+    inset: auto;
+    width: min(78vw, 360px);
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    margin: 60svh auto 2rem;
+  }
+
+  .editie-03 .favorite {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .editie-03 .favorite-name {
+    font-size: clamp(0.9rem, 4vw, 1.15rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .editie-03 .plate-card {
+    transition-duration: 0.01ms;
+  }
+}
+
+.editie-04 {
+  min-height: 100vh;
+  background-color: bisque;
 }
