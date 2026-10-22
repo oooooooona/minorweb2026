@@ -7,75 +7,7 @@
   <title>editie 3 - crêpes </title>
   <link rel="stylesheet" href="../style.css">
 </head>
-<body class="editie-03">
-  <main class="scene" aria-labelledby="page-title">
+<body>
 
-    <img class="crepe desktop-crepe-one" src="../beeld/image%203.png" alt="" aria-hidden="true">
-    <img class="crepe desktop-crepe-two" src="../beeld/image%203.png" alt="" aria-hidden="true">
-    <img class="crepe desktop-crepe-three" src="../beeld/image%203.png" alt="" aria-hidden="true">
-
-    <img class="crepe mobile-crepe mobile-crepe-one" src="../beeld/image%203.png" alt="" aria-hidden="true">
-    <img class="crepe mobile-crepe mobile-crepe-two" src="../beeld/image%203.png" alt="" aria-hidden="true">
-    <img class="crepe mobile-crepe mobile-crepe-three" src="../beeld/image%203.png" alt="" aria-hidden="true">
-    <img class="crepe mobile-crepe mobile-crepe-four" src="../beeld/image%203.png" alt="" aria-hidden="true">
-    <img class="crepe mobile-crepe mobile-crepe-five" src="../beeld/image%203.png" alt="" aria-hidden="true">
-
-    <ol class="favorites" aria-label="Mijn drie favoriete toppings">
-      <li class="favorite">
-        <button class="plate-card" type="button" aria-pressed="false" aria-label="Toon topping 1: boter + bruine suiker">
-          <span class="plate-face plate-front" aria-hidden="false">
-            <img src="../beeld/image%2010.png" alt="">
-          </span>
-          <span class="plate-face plate-back" aria-hidden="true">
-            <img src="../beeld/image%2010.png" alt="">
-            <span class="favorite-name">topping 1<br>boter + bruine suiker</span>
-          </span>
-        </button>
-      </li>
-      <li class="favorite">
-        <button class="plate-card" type="button" aria-pressed="false" aria-label="Toon topping 2: aardbeienconfituur">
-          <span class="plate-face plate-front" aria-hidden="false">
-            <img src="../beeld/image%2010.png" alt="">
-          </span>
-          <span class="plate-face plate-back" aria-hidden="true">
-            <img src="../beeld/image%2010.png" alt="">
-            <span class="favorite-name">topping 2<br>aardbeienconfituur</span>
-          </span>
-        </button>
-      </li>
-      <li class="favorite">
-        <button class="plate-card" type="button" aria-pressed="false" aria-label="Toon topping 3: poedersuiker">
-          <span class="plate-face plate-front" aria-hidden="false">
-            <img src="../beeld/image%2010.png" alt="">
-          </span>
-          <span class="plate-face plate-back" aria-hidden="true">
-            <img src="../beeld/image%2010.png" alt="">
-            <span class="favorite-name">topping 3<br>poedersuiker</span>
-          </span>
-        </button>
-      </li>
-    </ol>
-    
-     <footer>
-    <a href="../index.html">Overzicht</a>
-  </footer>
-
-  </main>
-  <script>
-    document.querySelectorAll(".plate-card").forEach((button) => {
-      const front = button.querySelector(".plate-front");
-      const back = button.querySelector(".plate-back");
-      const topping = button.querySelector(".favorite-name").textContent.replace(/^topping \d+/i, "").trim();
-      const number = button.getAttribute("aria-label").match(/topping \d+/i)[0];
-
-      button.addEventListener("click", () => {
-        const isFlipped = button.classList.toggle("is-flipped");
-        button.setAttribute("aria-pressed", String(isFlipped));
-        button.setAttribute("aria-label", isFlipped ? `${number}: ${topping}` : `Toon ${number}: ${topping}`);
-        front.setAttribute("aria-hidden", String(isFlipped));
-        back.setAttribute("aria-hidden", String(!isFlipped));
-      });
-    });
-  </script>
 </body>
 </html>
