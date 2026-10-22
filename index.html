@@ -8,37 +8,100 @@
   <link rel="stylesheet" href="style.css">
   <style>
     body {
-    background-image:url("beeld/table 02.png");
-    background-color:#c9f9ff;
-    background-size: 90%;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: scroll;
-    text-align: center;
-    margin: ;
-    min-height: 100vh;
-    height: 100vh;
-    overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      min-height: 100svh;
+      margin: 0;
+      padding: clamp(0.5rem, 2vh, 1.5rem);
+      overflow-x: hidden;
+      background-color: #c9f9ff;
+      text-align: center;
     }
 
-  .txt {
-  position: relative;
-  width: fit-content;
-  height: fit-content;
-  display: inline-block;
-}
-.txt span {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  font-size: 2rem;
-  color:yellow;
-  z-index:99;
-  opacity:0;
-}
-.txt:hover span, .txt:focus span {
-  opacity: 1;
-}
+    header {
+      position: relative;
+      z-index: 1;
+    }
 
+    h1 {
+      margin: 0 0 0.5rem;
+      font-size: clamp(1.5rem, 4vw, 3rem);
+    }
+
+    main {
+      display: grid;
+      flex: 1;
+      place-items: center;
+      width: 100%;
+      min-height: 0;
+    }
+
+    .table-scene {
+      position: relative;
+      width: min(92vw, 1156px, 125vh);
+      aspect-ratio: 1156 / 672;
+      background: url("beeld/table 02.png") center / 100% 100% no-repeat;
+    }
+
+    .txt {
+      position: absolute;
+      top: 50%;
+      width: 18%;
+      transform: translate(-50%, -50%);
+    }
+
+    .txt a {
+      display: block;
+    }
+
+    .txt img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .txt span {
+      position: absolute;
+      top: 60%;
+      left: 50%;
+      z-index: 1;
+      transform: translate(-50%, -50%);
+      padding: 0.1em 0.25em;
+      color: yellow;
+      font-size: clamp(0.65rem, 1.3vw, 1rem);
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 160ms ease;
+    }
+
+    .txt:hover span,
+    .txt:focus-within span {
+      opacity: 1;
+    }
+
+    .edition-01 {
+      left: 23%;
+    }
+
+    .edition-02 {
+      left: 41%;
+    }
+
+    .edition-03 {
+      left: 59%;
+    }
+
+    .edition-04 {
+      left: 77%;
+    }
+
+    @media (hover: none) {
+      .txt span {
+        opacity: 1;
+      }
+    }
   </style>
 </head>
 <body>
@@ -47,31 +110,32 @@
   </header>
 
   <main>
-
-  <div class="txt" style="position:absolute; top: 30%; left: 20%;">
-  <a href="edities/01.html">
-  <img src="beeld/" style="width:20vw;">
-  <span style="font-size:15px; top: 60%; left: 50%; background-color:rgb(180, 72, 219);">editie 01</span></a>
- </div>
-
-<div class="txt" style="position:absolute; top: 20%; left: 70%;">
-  <a href="edities/02.html">
-  <img src="beeld/tiramisulatte.png" style="width:20vw;">
-  <span style="font-size:15px; top: 60%; left: 50%; background-color:rgb(255, 115, 211);">editie 02</span></a>
- </div>
-
- <div class="txt" style="position:absolute; top: 20%; left: 50%;">
-  <a href="edities/03.html">
-  <img src="beeld/image 3.png" style="width:20vw;">
-  <span style="font-size:15px; top: 60%; left: 50%; ;background-color:rgb(25, 0, 255);">editie 03</span></a>
- </div>
-
- <div class="txt" style="position:absolute; top: 30%; left: 30%;">
-  <a href="edities/04.html">
-  <img src="beeld/wafel.png" style="width:20vw;">
-  <span style="font-size:15px; top: 60%; left: 50%; ;background-color:rgb(255, 0, 204);">editie 04</span></a>
- </div>
- 
+    <div class="table-scene" role="group">
+      <div class="txt edition-01">
+        <a href="edities/01.html">
+          <img src="beeld/image 10.png" alt="">
+          <span style="background-color: rgb(180, 72, 219);">editie 01</span>
+        </a>
+      </div>
+      <div class="txt edition-02">
+        <a href="edities/02.html">
+          <img src="beeld/tiramisulatte.png" alt="Tiramisulatte">
+          <span style="background-color: rgb(255, 115, 211);">editie 02</span>
+        </a>
+      </div>
+      <div class="txt edition-03">
+        <a href="edities/03.html">
+          <img src="beeld/image%203.png" alt="Crêpe">
+          <span style="background-color: rgb(25, 0, 255);">editie 03</span>
+        </a>
+      </div>
+      <div class="txt edition-04">
+        <a href="edities/04.html">
+          <img src="beeld/wafel.png" alt="Wafel">
+          <span style="background-color: rgb(255, 0, 204);">editie 04</span>
+        </a>
+      </div>
+    </div>
   </main>
 </body>
 </html>
