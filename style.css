@@ -9,38 +9,18 @@ a {
 .overview {
   display: flex;
   flex-direction: column;
-  align-items: center;
   min-height: 100vh;
   min-height: 100svh;
   padding: clamp(0.5rem, 2vh, 1.5rem);
   overflow-x: hidden;
-  background-color: #c9f9ff;
-  text-align: center;
+  background-image: url(beeld/backgroundtafel1.JPG);
+  background-size: cover;
 }
 
-.overview header {
-  position: relative;
-  z-index: 1;
-}
 
 .overview h1 {
-  margin: 0 0 0.5rem;
+  margin: 20px;
   font-size: clamp(1.5rem, 4vw, 3rem);
-}
-
-.overview main {
-  display: grid;
-  flex: 1;
-  place-items: center;
-  width: 100%;
-  min-height: 0;
-}
-
-.overview .table-scene {
-  position: relative;
-  width: min(92vw, 1156px, 125vh);
-  aspect-ratio: 1156 / 672;
-  background: url("beeld/table 02.png") center / 100% 100% no-repeat;
 }
 
 .overview .txt {
@@ -81,6 +61,7 @@ a {
 
 .overview .edition-01 {
   left: 23%;
+  top: 55%;
 }
 
 .overview .edition-02 {
@@ -89,6 +70,7 @@ a {
 
 .overview .edition-03 {
   left: 59%;
+  top: 75%;
 }
 
 .overview .edition-04 {
@@ -96,11 +78,11 @@ a {
 }
 
 .overview .label-01 {
-  background-color: rgb(180, 72, 219);
+  background-color: rgb(25, 0, 255);
 }
 
 .overview .label-02 {
-  background-color: rgb(255, 115, 211);
+  background-color: rgb(25, 0, 255);
 }
 
 .overview .label-03 {
@@ -108,7 +90,7 @@ a {
 }
 
 .overview .label-04 {
-  background-color: rgb(255, 0, 204);
+  background-color:rgb(25, 0, 255);
 }
 
 @media (hover: none) {
@@ -256,13 +238,82 @@ a {
   margin-top: 0.5rem;
 }
 
+.editie-02 {
+  color-scheme: light;
+  min-width: 320px;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: #ff08ff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  --coffee: #ffeaf9;
+  --cream: #fae9cd;
+}
 
+.editie-02,
+.editie-02 *,
 .editie-03,
 .editie-03 * {
   box-sizing: border-box;
 }
 
+.editie-02 .composition {
+  position: relative;
+  width: min(100vw, 130vh);
+  height: min(100svh, 76vw);
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  isolation: isolate;
+}
 
+.editie-02 .dessert {
+  display: block;
+  width: min(88%, 110vh, 1000px);
+  max-height: 88%;
+  object-fit: contain;
+}
+
+.editie-02 h1 {
+  position: absolute;
+  z-index: 1;
+  right: 6%;
+  bottom: 9%;
+  margin: 0;
+  color: var(--coffee);
+  font-size: clamp(4.5rem, 12vw, 10rem);
+  font-weight: 900;
+  letter-spacing: -0.11em;
+  line-height: 0.76;
+  text-align: right;
+}
+
+.editie-02 h1 span {
+  display: block;
+}
+
+@media (max-width: 680px) {
+  .editie-02 .composition {
+    width: 100vw;
+    height: 100svh;
+    min-height: 100svh;
+  }
+
+  .editie-02 .dessert {
+    width: 100%;
+    max-height: 76%;
+  }
+
+  .editie-02 h1 {
+    right: 5%;
+    bottom: 15%;
+    font-size: clamp(4rem, 17vw, 6.5rem);
+  }
+}
 
 .editie-03 {
   color-scheme: light;
