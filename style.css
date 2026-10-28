@@ -13,7 +13,9 @@ a {
   min-height: 100svh;
   padding: clamp(0.5rem, 2vh, 1.5rem);
   overflow-x: hidden;
-  background-image: url(beeld/backgroundtafel1.JPG);
+  background-image: url("https://raw.githubusercontent.com/oooooooona/minorweb2026/main/beeld/backgroundtafel1.JPG");
+  background-position: center;
+  background-repeat: no-repeat;
   background-size: cover;
 }
 
