@@ -9,20 +9,32 @@ a {
 .overview {
   display: flex;
   flex-direction: column;
+  padding: 20px;
   min-height: 100vh;
   min-height: 100svh;
-  padding: clamp(0.5rem, 2vh, 1.5rem);
   overflow-x: hidden;
-  background-image: url("https://raw.githubusercontent.com/oooooooona/minorweb2026/main/beeld/backgroundtafel1.JPG");
-  background-position: center;
-  background-repeat: no-repeat;
+  background-image: url("beeld/backgroundtafel1.JPG");
   background-size: cover;
+  background-position: center;
 }
 
+.overview header {
+  position: relative;
+  z-index: 1;
+}
 
 .overview h1 {
-  margin: 20px;
-  font-size: clamp(1.5rem, 4vw, 3rem);
+  margin: 0 0 0.5rem;
+  font-family: Inter, system-ui, sans-serif;
+  color:#ff08ff;
+}
+
+.overview main {
+  display: grid;
+  flex: 1;
+  place-items: center;
+  width: 100%;
+  min-height: 0;
 }
 
 .overview .txt {
@@ -63,28 +75,30 @@ a {
 
 .overview .edition-01 {
   left: 23%;
-  top: 55%;
+  top: 50%;
 }
 
 .overview .edition-02 {
   left: 41%;
+  top: 40%;
 }
 
 .overview .edition-03 {
   left: 59%;
-  top: 75%;
+  top: 60%;
 }
 
 .overview .edition-04 {
   left: 77%;
+  top: 50%;
 }
 
 .overview .label-01 {
-  background-color: rgb(25, 0, 255);
+  background-color: rgb(180, 72, 219);
 }
 
 .overview .label-02 {
-  background-color: rgb(25, 0, 255);
+  background-color: rgb(255, 115, 211);
 }
 
 .overview .label-03 {
@@ -92,7 +106,7 @@ a {
 }
 
 .overview .label-04 {
-  background-color:rgb(25, 0, 255);
+  background-color: rgb(255, 0, 204);
 }
 
 @media (hover: none) {
