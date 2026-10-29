@@ -56,12 +56,13 @@ a {
 
 .overview .txt span {
   position: absolute;
+  font-family: Inter, system-ui, sans-serif;
   top: 60%;
   left: 50%;
   z-index: 1;
   transform: translate(-50%, -50%);
   padding: 0.1em 0.25em;
-  color: yellow;
+  color: rgb(255, 255, 250);
   font-size: clamp(0.65rem, 1.3vw, 1rem);
   white-space: nowrap;
   opacity: 0;
