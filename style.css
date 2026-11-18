@@ -17,10 +17,9 @@ body {
   min-height: 100vh;
   min-height: 100svh;
   overflow: hidden;
-  background-image: url("beeld/tafelillustratie.PNG");
+  background-image: url("https://www.fancyparts.com/fancyparts/cg/pattern/dot_01/dot-01-15.gif");
   background-color:#d1f1e4;
-  background-size: cover;
-  background-repeat: no-repeat;
+  background-repeat: repeat;
 }
 
 .overview header {
@@ -41,6 +40,15 @@ body {
   place-items: center;
   width: 100%;
   min-height: 0;
+}
+
+.overview .table-illustration {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .overview .txt {
