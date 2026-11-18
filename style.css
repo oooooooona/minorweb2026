@@ -20,7 +20,7 @@ body {
   background-image: url("beeld/tafelillustratie.PNG");
   background-color:#d1f1e4;
   background-size: cover;
-  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .overview header {
