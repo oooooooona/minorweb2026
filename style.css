@@ -35,7 +35,7 @@ a {
 .overview h1 {
   margin: 0 0 0.5rem;
   font-family: var(--site-font);
-  color:#ff089c;
+  color:#f865b0;
 }
 
 .overview main {
@@ -104,19 +104,19 @@ a {
 }
 
 .overview .label-01 {
-  background-color: rgb(255, 0, 204);
+  background-color: #f865b0;
 }
 
 .overview .label-02 {
-  background-color: rgb(255, 0, 204);
+  background-color: #f865b0;
 }
 
 .overview .label-03 {
-  background-color: rgb(255, 0, 204);
+  background-color: #f865b0;
 }
 
 .overview .label-04 {
-  background-color: rgb(255, 0, 204);
+  background-color: #f865b0;
 }
 
 @media (hover: none) {
@@ -128,7 +128,7 @@ a {
 .editie-01 footer a {
   display: inline-flex;
   align-items: center;
-  color: #ff089c;
+  color: #f865b0;
   font-weight: 700;
   text-decoration: none;
   transition: background-color 160ms ease, transform 160ms ease;
@@ -152,7 +152,7 @@ a {
   height: 100vh;
   height: 100svh;
   overflow: hidden;
-  background-color: #D1FAFE;
+  background-color: #d1f1e4;
 }
 
 .editie-01 header {
@@ -179,14 +179,14 @@ a {
   padding: 0;
   border: 0;
   background: none;
-  color: #ff089c;
+  color:  #f865b0;
   font: inherit;
   text-align: left;
   -webkit-tap-highlight-color: transparent;
 }
 
 .editie-01 h1 button:focus-visible {
-  outline: 3px solid #ff089c;
+  outline: 3px solid #f865b0;
   outline-offset: -6px;
 }
 
@@ -317,7 +317,7 @@ a {
 .editie-02,
 .editie-03,
  footer a {
-  color: #ff089c;
+  color: #f865b0;
   text-decoration: none;
 
 }
@@ -329,9 +329,8 @@ a {
   display: grid;
   place-items: center;
   overflow: hidden;
-  background: #ff089c;
+  background-color: #fbcaef;
   font-weight: 400;
-  --coffee: #D1FAFE;
 }
 
 .editie-02,
@@ -410,5 +409,5 @@ a {
 
 .editie-04 {
   min-height: 100vh;
-  background-color: bisque;
+  background-color: #fbcaef;
 }
