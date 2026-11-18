@@ -291,9 +291,9 @@ body {
   }
 }
 
-.editie-01
-.editie-02,
-.editie-03, footer {
+.editie-01 footer,
+.editie-02 footer,
+.editie-03 footer {
   position: absolute;
   right: 1rem;
   bottom: 0.8rem;
@@ -302,18 +302,16 @@ body {
   text-decoration: none;
 }
 
-.editie-01
-.editie-02,
-.editie-03,
- footer a {
+.editie-01 footer a,
+.editie-02 footer a,
+.editie-03 footer a {
   color: #f865b0;
   text-decoration: none;
 }
 
-.editie-01
-.editie-02,
-.editie-03,
- footer a:hover {
+.editie-01 footer a:hover,
+.editie-02 footer a:hover,
+.editie-03 footer a:hover {
   color: #1900ff;
 }
 
@@ -360,10 +358,158 @@ body {
 }
 
 
-.editie-03{
-  background-image: url("beeld/gingham-02.jpg");
-  background-size: cover;
-  background-position: center;
+.editie-03 {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100svh;
+  overflow: hidden;
+  background-color: #d1f1e4;
+}
+
+.editie-03 .ingredients-layout {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.editie-03 .crepe-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(52vw, 79svh, 42rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #efe2bf;
+  transform: translate(-50%, -50%);
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.editie-03 .painting-instructions {
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  z-index: 2;
+  margin: 0;
+  padding: 0.45rem 0.7rem;
+  background: #fbcaef;
+  color: #49392b;
+  font-size: clamp(0.75rem, 1.5vw, 0.95rem);
+  text-align: center;
+  transform: translateX(-50%);
+}
+
+.editie-03 .emoji-stamp {
+  position: absolute;
+  z-index: 1;
+  font-size: clamp(1.25rem, 3vw, 2.5rem);
+  line-height: 1;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+.editie-03 .ingredient {
+  position: absolute;
+  z-index: 1;
+  display: block;
+  padding: 0;
+  border: 0;
+  background: none;
+  height: auto;
+  cursor: pointer;
+}
+
+.editie-03 .ingredient img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.editie-03 .ingredient[aria-pressed="true"] {
+  filter: drop-shadow(0 0 0.5rem #f865b0);
+}
+
+.editie-03 .ingredient:focus-visible {
+  outline: 3px solid #f865b0;
+  outline-offset: 4px;
+}
+
+.editie-03 .ingredient-butter {
+  top: 10%;
+  left: 7%;
+  width: clamp(5rem, 14vw, 10.5rem);
+}
+
+.editie-03 .ingredient-powdered-sugar {
+  top: 8%;
+  right: 8%;
+  width: clamp(5rem, 13vw, 9.75rem);
+}
+
+.editie-03 .ingredient-blueberries {
+  top: 43%;
+  left: 5%;
+  width: clamp(5rem, 14vw, 10.5rem);
+}
+
+.editie-03 .ingredient-brown-sugar {
+  top: 44%;
+  right: 4%;
+  width: clamp(5rem, 15vw, 11.25rem);
+}
+
+.editie-03 .ingredient-jam {
+  bottom: 13%;
+  left: 11%;
+  width: clamp(4.5rem, 12vw, 9rem);
+}
+
+.editie-03 .ingredient-chocolate-spread {
+  right: 10%;
+  bottom: 8%;
+  width: clamp(5rem, 14vw, 10.5rem);
+}
+
+@media (max-width: 600px) {
+  .editie-03 .crepe-circle {
+    width: min(62vw, 58svh);
+  }
+
+  .editie-03 .ingredient-butter {
+    left: 4%;
+    width: 21vw;
+  }
+
+  .editie-03 .ingredient-powdered-sugar {
+    right: 4%;
+    width: 20vw;
+  }
+
+  .editie-03 .ingredient-blueberries {
+    left: 2%;
+    width: 22vw;
+  }
+
+  .editie-03 .ingredient-brown-sugar {
+    right: 2%;
+    width: 23vw;
+  }
+
+  .editie-03 .ingredient-jam {
+    left: 7%;
+    width: 19vw;
+  }
+
+  .editie-03 .ingredient-chocolate-spread {
+    right: 6%;
+    width: 21vw;
+  }
 }
 
 
