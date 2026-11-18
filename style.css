@@ -1,5 +1,5 @@
 :root {
-  --site-font: "Arial Narrow", sans-serif;
+  --site-font: system, sans-serif;
 }
 
 body {
@@ -9,10 +9,6 @@ body {
 
 * {
   cursor: url("beeld/1cakeje-cursor.png") 28 0, auto;
-}
-
-a {
-  color: inherit;
 }
 
 .overview {
@@ -30,6 +26,7 @@ a {
 .overview header {
   position: relative;
   z-index: 1;
+  padding: 1rem 1.5rem;
 }
 
 .overview h1 {
@@ -409,5 +406,8 @@ a {
 
 .editie-04 {
   min-height: 100vh;
-  background-color: #fbcaef;
+  background-color: #f865b0;
+  background-image: url("beeld/fork.PNG");
+  background-size: cover;
+  background-position: center;
 }
