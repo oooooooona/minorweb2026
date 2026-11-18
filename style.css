@@ -1,5 +1,10 @@
+:root {
+  --site-font: "Authentic Sans Condensed", sans-serif;
+}
+
 body {
   margin: 0;
+  font-family: var(--site-font);
 }
 
 a {
@@ -25,7 +30,7 @@ a {
 
 .overview h1 {
   margin: 0 0 0.5rem;
-  font-family: Inter, system-ui, sans-serif;
+  font-family: var(--site-font);
   color:#ff089c;
 }
 
@@ -56,7 +61,7 @@ a {
 
 .overview .txt span {
   position: absolute;
-  font-family: Inter, system-ui, sans-serif;
+  font-family: var(--site-font);
   top: 60%;
   left: 50%;
   z-index: 1;
@@ -126,7 +131,7 @@ a {
 }
 
 .editie-01 footer a:hover {
-  color: #9c2860;
+  color: #1900ff;
 }
 
 .editie-01 {
@@ -154,7 +159,7 @@ a {
   width: 100%;
   height: 100%;
   margin: 0;
-  font: 900 clamp(3.5rem, 18vw, 15rem) / 0.82 Arial, Helvetica, sans-serif;
+  font: 900 clamp(3.5rem, 18vw, 15rem) / 0.82 var(--site-font);
   letter-spacing: -0.055em;
 }
 
@@ -295,7 +300,7 @@ a {
   right: 1rem;
   bottom: 0.8rem;
   z-index: 1;
-  font: 700 0.75rem / 1 Arial, Helvetica, sans-serif;
+  font: 700 0.75rem / 1 var(--site-font);
 }
 
 .editie-01 footer a {
@@ -310,9 +315,9 @@ a {
   place-items: center;
   overflow: hidden;
   background: #ff089c;
-  font-family: Arial, Helvetica, sans-serif;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
+  font-family: jjminiarcade, sans-serif;
+  font-style: normal;
+  font-weight: 400;
   --coffee: #D1FAFE;
 }
 
