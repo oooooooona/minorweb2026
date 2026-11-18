@@ -22,7 +22,8 @@ a {
   min-height: 100vh;
   min-height: 100svh;
   overflow-x: hidden;
-  background-image: url("beeld/backgroundtafel1.JPG");
+  background-image: url("beeld/tafel\ zwart.png");
+  background-color:#d1f1e4;
   background-size: cover;
   background-position: center;
 }
