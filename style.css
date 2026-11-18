@@ -1,5 +1,5 @@
 :root {
-  --site-font: "Authentic Sans Condensed", sans-serif;
+  --site-font: "Arial Narrow", sans-serif;
 }
 
 body {
@@ -166,7 +166,7 @@ a {
   width: 100%;
   height: 100%;
   margin: 0;
-  font: 900 clamp(3.5rem, 18vw, 15rem) / 0.82 var(--site-font);
+  font: 1000 clamp(5.5rem, 18vw, 15rem) / 0.82 var(--site-font);
   letter-spacing: -0.055em;
 }
 
@@ -330,8 +330,6 @@ a {
   place-items: center;
   overflow: hidden;
   background: #ff089c;
-  font-family: jjminiarcade, sans-serif;
-  font-style: normal;
   font-weight: 400;
   --coffee: #D1FAFE;
 }
@@ -364,15 +362,19 @@ a {
 .editie-02 h1 {
   position: absolute;
   z-index: 1;
-  right: 6%;
+  left: 0;
+  right: 0;              
   bottom: 9%;
   margin: 0;
+  padding: 0 3vw;        /* small margin so it doesn't touch the edge */
+  box-sizing: border-box;
   color: var(--coffee);
-  font-size: clamp(4.5rem, 12vw, 10rem);
-  font-weight: 900;
+  font-size: clamp(5.5rem, 22vw, 60rem);   
+  font-weight: 1000;
   letter-spacing: -0.11em;
   line-height: 0.76;
   text-align: right;
+  white-space: nowrap;
 }
 
 .editie-02 h1 span {
