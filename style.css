@@ -18,11 +18,10 @@ a {
 .overview {
   display: flex;
   flex-direction: column;
-  padding: 20px;
   min-height: 100vh;
   min-height: 100svh;
-  overflow-x: hidden;
-  background-image: url("beeld/tafel\ zwart.png");
+  overflow: hidden;
+  background-image: url("beeld/tafelillustratie.PNG");
   background-color:#d1f1e4;
   background-size: cover;
   background-position: center;
