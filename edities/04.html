@@ -1,24 +1,105 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="nl">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>editie 04 - waffle</title>
-  <link rel="stylesheet" href="../style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>editie 4 - wafel</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #eb5696; /* Roze achtergrondkleur */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    /* De container met de statische achtergrond (bord + mes + vork) */
+    #bord-container {
+      position: relative;
+      width: 100vw;
+      max-width: 1200px;
+      aspect-ratio: 16 / 10; /* Pas dit aan naar de exacte verhouding van je achtergrondafbeelding */
+      background-image: url('../beeld/fork.PNG');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    /* Alle losse PNG-lagen exact op elkaar gestapeld */
+    .laag {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      pointer-events: none; /* Zorgt dat de klik altijd op de container zelf landt */
+      opacity: 0;
+      transition: opacity 0.2s ease; /* Zet op 0s als je een harde knip wilt zonder fade */
+    }
+
+    .laag.zichtbaar {
+      opacity: 1;
+    }
+  </style>
 </head>
-<body class="editie editie-04" data-background="0">
+<body>
 
-  <header>
- 
-  </header>
+  <div id="bord-container">
+    <!-- Stap 1: De wafel (vervang src door jouw eigen PNG-bestandsnaam) -->
+    <img src="../beeld/emptywafel.png" alt="" class="laag">
 
-  <main>
+    <!-- Stap 2: Het ijs -->
+    <img src="../beeld/ijs.png" alt="" class="laag">
 
-  </main>
+    <!-- Stap 3: De bananen -->
+    <img src="../beeld/banaan.png" alt="" class="laag">
 
-  <footer>
-    <a href="../index.html">overzicht</a>
-  </footer>
+    <!-- Stap 4: De slagroom -->
+    <img src="../beeld/slagroom.png" alt="" class="laag">
+  </div>
+
+  <script>
+    const bord = document.getElementById('bord-container');
+    const lagen = document.querySelectorAll('.laag');
+    let huidigeStap = 0; // 0 = leeg bord
+
+    function updateBord() {
+      lagen.forEach((laag, index) => {
+        if (index < huidigeStap) {
+          laag.classList.add('zichtbaar');
+        } else {
+          laag.classList.remove('zichtbaar');
+        }
+      });
+    }
+
+    // Linkermuisklik: volgende laag toevoegen
+    bord.addEventListener('click', () => {
+      if (huidigeStap < lagen.length) {
+        huidigeStap++;
+        updateBord();
+      }
+    });
+
+    // Rechtermuisklik: vorige laag weghalen (omgekeerde richting)
+    bord.addEventListener('contextmenu', (e) => {
+      e.preventDefault(); // Voorkomt het standaard rechtermuisklik-menu
+      if (huidigeStap > 0) {
+        huidigeStap--;
+        updateBord();
+      }
+    });
+  </script>
 
 </body>
 </html>

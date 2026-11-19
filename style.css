@@ -533,7 +533,9 @@ body {
   min-height: 100vh;
   background-color: #f865b0;
   background-image: url("beeld/fork.PNG");
-  background-size: cover;
+  background-size:  810px;
+  background-repeat: no-repeat;
+  
 }
 
 .editie-05 {
