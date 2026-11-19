@@ -52,9 +52,12 @@
     }
   </style>
 </head>
+
 <body>
 
+
   <div id="bord-container">
+  
     <!-- Stap 1: De wafel (vervang src door jouw eigen PNG-bestandsnaam) -->
     <img src="../beeld/emptywafel.png" alt="" class="laag">
 
@@ -64,40 +67,39 @@
     <!-- Stap 3: De bananen -->
     <img src="../beeld/banaan.png" alt="" class="laag">
 
-    <!-- Stap 4: De slagroom -->
     <img src="../beeld/slagroom.png" alt="" class="laag">
+
+    <!-- Stap 4: De slagroom -->
+    <img src="../beeld/wafel3.png" alt="" class="laag">
   </div>
 
   <script>
     const bord = document.getElementById('bord-container');
     const lagen = document.querySelectorAll('.laag');
-    let huidigeStap = 0; // 0 = leeg bord
+    let huidigeStap = 0;
+    let richting = 1; // 1 = opbouwen, -1 = afbouwen
 
     function updateBord() {
       lagen.forEach((laag, index) => {
-        if (index < huidigeStap) {
-          laag.classList.add('zichtbaar');
-        } else {
-          laag.classList.remove('zichtbaar');
-        }
+        laag.classList.toggle('zichtbaar', index < huidigeStap);
       });
     }
 
-    // Linkermuisklik: volgende laag toevoegen
     bord.addEventListener('click', () => {
-      if (huidigeStap < lagen.length) {
-        huidigeStap++;
-        updateBord();
-      }
-    });
+      huidigeStap += richting;
 
-    // Rechtermuisklik: vorige laag weghalen (omgekeerde richting)
-    bord.addEventListener('contextmenu', (e) => {
-      e.preventDefault(); // Voorkomt het standaard rechtermuisklik-menu
-      if (huidigeStap > 0) {
-        huidigeStap--;
-        updateBord();
+      // Als het bord vol is, draai de richting om naar achteruit
+      if (huidigeStap >= lagen.length) {
+        huidigeStap = lagen.length;
+        richting = -1;
+      } 
+      // Als het bord weer leeg is, draai de richting om naar vooruit
+      else if (huidigeStap <= 0) {
+        huidigeStap = 0;
+        richting = 1;
       }
+
+      updateBord();
     });
   </script>
 
