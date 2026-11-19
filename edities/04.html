@@ -76,6 +76,8 @@
   <script>
     const bord = document.getElementById('bord-container');
     const lagen = document.querySelectorAll('.laag');
+    const klikGeluid = new Audio('../geluid/sparkle3.mp3');
+    klikGeluid.preload = 'auto';
     let huidigeStap = 0;
     let richting = 1; // 1 = opbouwen, -1 = afbouwen
 
@@ -84,8 +86,12 @@
         laag.classList.toggle('zichtbaar', index < huidigeStap);
       });
     }
-
     bord.addEventListener('click', () => {
+      klikGeluid.currentTime = 0;
+      klikGeluid.play().catch((error) => {
+        console.error('Het klikgeluid kon niet worden afgespeeld:', error);
+      });
+
       huidigeStap += richting;
 
       // Als het bord vol is, draai de richting om naar achteruit
