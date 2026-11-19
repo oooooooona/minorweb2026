@@ -104,8 +104,13 @@ body {
 }
 
 .overview .edition-04 {
-  left: 77%;
-  top: 50%;
+  left: 62%;
+  top: 40%;
+}
+
+.overview .edition-05 {
+  left: 80%;
+  top: 60%;
 }
 
 .overview .label-01 {
@@ -121,6 +126,10 @@ body {
 }
 
 .overview .label-04 {
+  background-color: #f865b0;
+}
+
+.overview .label-05 {
   background-color: #f865b0;
 }
 
