@@ -71,7 +71,7 @@ body {
 .overview .txt span {
   position: absolute;
   font-family: var(--site-font);
-  top: 60%;
+  top: 50%;
   left: 50%;
   z-index: 1;
   transform: translate(-50%, -50%);
