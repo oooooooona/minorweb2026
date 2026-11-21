@@ -1,24 +1,187 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="nl">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>editie 05 - apple cinnamon doughnuts</title>
-  <link rel="stylesheet" href="../style.css">
+  
+  <!-- Pixel-lettertype voor de digitale klok -->
+  <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      background-image: url('../beeld/dot-01-18.gif');
+      background-attachment: fixed;
+      font-family: 'Silkscreen', monospace;
+    }
+
+    /* Onzichtbare hoogte voor 9 stappen (hoe hoger, hoe rustiger je door de stappen scrolt) */
+    .scroll-space {
+      height: 800vh; 
+    }
+
+    /* Vaste weergave op het scherm */
+    .clock-stage {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    /* Buitenste cirkel van de klok */
+    .clock-ring {
+      position: relative;
+      width: clamp(280px, 40vw, 440px);
+      height: clamp(280px, 40vw, 440px);
+      border-radius: 50%;
+      border: 1px solid #000;
+      background-color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+      
+      /* Start bovenaan op 0 graden (12 uur) */
+      --angle: 0deg;
+      background: conic-gradient(
+        from var(--angle),
+        #FADCF0 0deg 35deg,   /* Het roze blokje */
+        #ffffff 35deg 360deg
+      );
+    }
+
+    /* Binnenste witte cirkel zodat het een ring wordt */
+    .clock-inner {
+      width: 68%;
+      height: 68%;
+      background-color: #ffffff;
+      border-radius: 50%;
+      border: 1px solid #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* De digitale tijd in het midden */
+    #timeDisplay {
+      font-size: clamp(1.8rem, 3.6vw, 3.2rem);
+      color: #000;
+      letter-spacing: 2px;
+    }
+
+    /* Basisstijl voor de 9 foto's rondom de klok */
+    .step-img {
+      position: absolute;
+      opacity: 0;
+      transform: scale(0.85);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      pointer-events: none;
+    }
+
+    .step-img.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Exacte posities van alle 9 foto's gebaseerd op jouw schetsen */
+    .img-1 { right: 8%; top: 6%; max-width: 26vw; }       /* 01: Twee appels rechtsboven */
+    .img-2 { right: 2%; top: 5%; max-width: 34vw; }       /* 02: Appelringen rechts */
+    .img-3 { right: 5%; top: 18%; max-width: 23vw; }      /* 03: Bladerdeeg repen rechts */
+    .img-4 { right: 4%; top: 10%; max-width: 34vw; }      /* 04: Rauwe appel-deegrolletjes rechts */
+    .img-5 { left: 4%; bottom: 4%; max-width: 38vw; }     /* 05: Appel-deegrolletjes linksonder */
+    .img-6 { left: 12%; bottom: 15%; max-width: 18vw; }   /* 06: Kommetje ei & kwast linksonder */
+    .img-7 { left: 12%; top: 48%; max-width: 14vw; }      /* 07: Oven display links */
+    .img-8 { left: 5%; top: 6%; max-width: 28vw; }        /* 08: Bakplaat linksboven */
+    .img-9 { left: 8%; top: 8%; max-width: 23vw; }        /* 09: Bord met gebakjes linksboven */
+  </style>
 </head>
-<body class="editie editie-05" data-background="0">
+<body>
 
-  <header>
- 
-  </header>
+  <!-- De vaste weergave op het scherm -->
+  <div class="clock-stage">
+    
+    <!-- De dubbele cirkel met het bewegende roze segment -->
+    <div class="clock-ring" id="clockRing">
+      <div class="clock-inner">
+        <span id="timeDisplay">08h50m</span>
+      </div>
+    </div>
 
-  <main>
+    <!-- De 9 afbeeldingen (pas de bestandsnamen aan naar jouw eigen bestanden) -->
+    <img src="../beeld/appels1.png" class="step-img img-1" alt="Stap 1: Appels">
+    <img src="../beeld/APPELRINGEN2.png" class="step-img img-2" alt="Stap 2: Appelringen">
+    <img src="../beeld/deeg3.png" class="step-img img-3" alt="Stap 3: Bladerdeeg">
+    <img src="../beeld/deegappels4.png" class="step-img img-4" alt="Stap 4: Deegrolletjes rechts">
+    <img src="../beeld/bruinesuikerappels5.png" class="step-img img-5" alt="Stap 5: Deegrolletjes links">
+    <img src="../beeld/ei6.png" class="step-img img-6" alt="Stap 6: Ei bestrijken">
+    <img src="../beeld/oven7.png" class="step-img img-7" alt="Stap 7: Oven">
+    <img src="../beeld/uitdeoven8.png" class="step-img img-8" alt="Stap 8: Bakplaat">
+    <img src="../beeld/appledougnuts.png" class="step-img img-9" alt="Stap 9: Bord ready">
 
-  </main>
+  </div>
 
-  <footer>
-    <a href="../index.html">overzicht</a>
-  </footer>
+  <!-- Onzichtbare hoogte om te kunnen scrollen -->
+  <div class="scroll-space"></div>
+
+  <script>
+    const clockRing = document.getElementById('clockRing');
+    const timeDisplay = document.getElementById('timeDisplay');
+    const images = document.querySelectorAll('.step-img');
+
+    // Alle 9 stappen op volgorde met de exacte tijden van je schetsen
+    const timeSteps = [
+      { threshold: 0.00, time: "08h50m", imgIndex: 0 },
+      { threshold: 0.11, time: "09h04m", imgIndex: 1 },
+      { threshold: 0.22, time: "09h10m", imgIndex: 2 },
+      { threshold: 0.33, time: "09h44m", imgIndex: 3 },
+      { threshold: 0.44, time: "09h51m", imgIndex: 4 },
+      { threshold: 0.55, time: "09h59m", imgIndex: 5 },
+      { threshold: 0.66, time: "10h15m", imgIndex: 6 },
+      { threshold: 0.77, time: "10h20m", imgIndex: 7 },
+      { threshold: 0.88, time: "ready!", imgIndex: 8 }
+    ];
+
+    window.addEventListener('scroll', () => {
+      // 1. Bereken hoe ver er is gescrold (tussen 0.0 en 1.0)
+      const scrollTop = window.scrollY;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollFraction = Math.min(Math.max(scrollTop / maxScroll, 0), 1);
+
+      // 2. Draai het roze blokje een volledige cirkel rond:
+      // Start op 0deg (12 uur bij 08h50m) en eindigt op 325deg (net voor 12 uur bij ready!)
+      const currentAngle = scrollFraction * 325;
+      clockRing.style.setProperty('--angle', `${currentAngle}deg`);
+
+      // 3. Bepaal welke van de 9 stappen actief is
+      let currentStep = timeSteps[0];
+      for (let i = 0; i < timeSteps.length; i++) {
+        if (scrollFraction >= timeSteps[i].threshold) {
+          currentStep = timeSteps[i];
+        }
+      }
+
+      // Update de tekst in het midden van de klok
+      timeDisplay.textContent = currentStep.time;
+
+      // Toon alleen de afbeelding van de huidige stap
+      images.forEach((img, index) => {
+        if (index === currentStep.imgIndex) {
+          img.classList.add('active');
+        } else {
+          img.classList.remove('active');
+        }
+      });
+    });
+
+    // Zorg dat stap 1 (08h50m) direct zichtbaar is bij het laden
+    window.dispatchEvent(new Event('scroll'));
+  </script>
 
 </body>
 </html>
