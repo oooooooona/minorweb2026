@@ -7,6 +7,7 @@
   
   <!-- Pixel-lettertype voor de digitale klok -->
   <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
 
   <style>
     body {
@@ -14,6 +15,10 @@
       background-image: url('../beeld/dot-01-18.gif');
       background-attachment: fixed;
       font-family: 'Silkscreen', monospace;
+    }
+
+    .editie-05 footer {
+      position: fixed;
     }
 
     /* Onzichtbare hoogte voor 9 stappen (hoe hoger, hoe rustiger je door de stappen scrolt) */
@@ -101,7 +106,7 @@
     .img-9 { left: 8%; top: 8%; max-width: 23vw; }        /* 09: Bord met gebakjes linksboven */
   </style>
 </head>
-<body>
+<body class="editie-05">
 
   <!-- De vaste weergave op het scherm -->
   <div class="clock-stage">
@@ -128,6 +133,10 @@
 
   <!-- Onzichtbare hoogte om te kunnen scrollen -->
   <div class="scroll-space"></div>
+
+   <footer>
+    <a href="../index.html">overzicht</a>
+  </footer>
 
   <script>
     const clockRing = document.getElementById('clockRing');
