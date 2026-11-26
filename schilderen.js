@@ -42,7 +42,7 @@ if (crepe && instructions && ingredients.length > 0) {
       ingredients.forEach((item) => {
         item.setAttribute("aria-pressed", String(item === ingredient));
       });
-      instructions.textContent = `${ingredient.querySelector("img").alt}sleep over de crêpe om te schilderen.`;
+      instructions.textContent = `${ingredient.querySelector("img").alt} sleep over de crêpe om te schilderen.`;
     });
   });
 
