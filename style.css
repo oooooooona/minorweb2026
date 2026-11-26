@@ -332,32 +332,125 @@ body {
   background-color: #d1f1e4;
 }
 
-.editie-02 .tray {
-  --breedte: min(92vw, 1100px);
-  --lijn: 2px;
-
-  width: var(--breedte);
-  aspect-ratio: 3 / 2;
-  margin: 2rem auto;
-  box-sizing: border-box;
+.editie-02 main {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  border-radius: calc(var(--breedte) * 0.168);
-  overflow: hidden;
+  flex: 1;
+  min-height: 0;
+  place-items: center;
 }
 
-.editie-02 .cell {
-  margin: 0;
-  background: #d8d8d8;
-  overflow: hidden;
+.editie-02 .tiramisu-layout {
+  position: relative;
+  width: min(92vw, 1100px, 120svh);
+  aspect-ratio: 3 / 2;
 }
 
-.editie-02 .cell img {
+.editie-02 .piece {
+  position: absolute;
   display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  width: 37%;
+  height: auto;
+  transform-origin: center;
+}
+
+.editie-02 .piece-1 {
+  top: 0;
+  left: 0;
+  z-index: 1;
+  transform: rotate(-90deg);
+}
+
+.editie-02 .piece-2 {
+  top: 0;
+  left: 31%;
+  z-index: 2;
+  transform: rotate(1deg);
+}
+
+.editie-02 .piece-3 {
+  top: 5%;
+  left: 61%;
+  z-index: 1;
+  transform: rotate(90deg);
+}
+
+.editie-02 .piece-4 {
+  top: 41%;
+  left: 0;
+  z-index: 3;
+  transform: rotate(-90deg);
+}
+
+.editie-02 .piece-5 {
+  top: 45%;
+  left: 31%;
+  z-index: 4;
+  transform: rotate(-180deg);
+}
+
+.editie-02 .piece-6 {
+  top: 47%;
+  left: 61%;
+  z-index: 3;
+  transform: rotate(90deg);
+}
+
+@media (max-width: 700px) {
+  .editie-02 {
+    background-color: #edc9ee;
+  }
+
+  .editie-02 .tiramisu-layout {
+    width: min(86vw, 560px, 60svh);
+    aspect-ratio: 2 / 3;
+    transform: translateY(6svh);
+  }
+
+  .editie-02 .piece {
+    width: 53%;
+  }
+
+  .editie-02 .piece-1 {
+    top: 0;
+    left: 0;
+    z-index: 1;
+    transform: rotate(-1deg);
+  }
+
+  .editie-02 .piece-2 {
+    top: 0;
+    left: 47%;
+    z-index: 2;
+    transform: rotate(1deg);
+  }
+
+  .editie-02 .piece-3 {
+    top: 29%;
+    left: 0;
+    z-index: 3;
+    transform: rotate(-90deg);
+  }
+
+  .editie-02 .piece-4 {
+    top: 30%;
+    left: 43%;
+    z-index: 4;
+    transform: rotate(90deg);
+  }
+
+  .editie-02 .piece-5 {
+    top: 60%;
+    left: 0;
+    z-index: 5;
+    transform: rotate(-180deg);
+  }
+
+  .editie-02 .piece-6 {
+    top: 60%;
+    left: 44%;
+    z-index: 6;
+    transform: rotate(-180deg);
+  }
 }
 
 
