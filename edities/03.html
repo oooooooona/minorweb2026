@@ -9,27 +9,32 @@
 </head>
 <body class="editie-03">
   <main class="ingredients-layout" aria-label="Ingrediënten voor crêpes">
-    <p class="painting-instructions" aria-live="polite">wat eet jij graag op je pannenkoek?</p>
+    <p class="painting-instructions" aria-live="polite">kies je favoriete topping</p>
     <div class="crepe-circle" aria-label="Crêpe om op te schilderen"></div>
     <button class="ingredient ingredient-butter" type="button" data-emoji="🧈" aria-label="Kies boter als schilder-emoji" aria-pressed="false">
-      <img src="../beeld/BOTER.png">
+      <img src="../beeld/BOTER.png" alt="">
     </button>
     <button class="ingredient ingredient-powdered-sugar" type="button" data-emoji="⭐️" aria-label="Kies poedersuiker als schilder-emoji" aria-pressed="false">
-      <img src="../beeld/PS.png">
+      <img src="../beeld/PS.png" alt="">
     </button>
     <button class="ingredient ingredient-blueberries" type="button" data-emoji="🫐" aria-label="Kies bosbessen als schilder-emoji" aria-pressed="false">
-      <img src="../beeld/BLUEB.png">
+      <img src="../beeld/BLUEB.png" alt="">
     </button>
     <button class="ingredient ingredient-brown-sugar" type="button" data-emoji="🤎" aria-label="Kies bruine suiker als schilder-emoji" aria-pressed="false">
-      <img src="../beeld/BS.png">
+      <img src="../beeld/BS.png" alt="">
     </button>
     <button class="ingredient ingredient-jam" type="button" data-emoji="🍓" aria-label="Kies aardbeienconfituur als schilder-emoji" aria-pressed="false">
-      <img src="../beeld/SBJ.png">
+      <img src="../beeld/SBJ.png" alt="">
     </button>
     <button class="ingredient ingredient-chocolate-spread" type="button" data-emoji="🍫" aria-label="Kies chocoladehazelnootpasta als schilder-emoji" aria-pressed="false">
-      <img src="../beeld/NUTELLA.png">
+      <img src="../beeld/NUTELLA.png" alt="">
     </button>
   </main>
+  <dialog class="ingredient-popup" aria-labelledby="ingredient-popup-title">
+    <button class="ingredient-popup-close" type="button" aria-label="Pop-up sluiten">×</button>
+    <h2 id="ingredient-popup-title"></h2>
+    <div class="ingredient-popup-photo" aria-label="Fotoplaats"></div>
+  </dialog>
   <footer>
     <a href="../index.html">overzicht</a>
   </footer>

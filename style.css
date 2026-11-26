@@ -493,9 +493,9 @@ body {
   z-index: 2;
   margin: 0;
   padding: 0.45rem 0.7rem;
-  background: #fbcaef;
-  color: #49392b;
+  color: #dd61af;
   font-size: clamp(0.75rem, 1.5vw, 0.95rem);
+  font-weight: 700;
   text-align: center;
   transform: translateX(-50%);
 }
@@ -573,38 +573,121 @@ body {
 }
 
 @media (max-width: 600px) {
+  .editie-03 {
+    min-height: 100svh;
+    height: auto;
+    overflow: visible;
+    background-color: #fff;
+  }
+
+  .editie-03 .ingredients-layout {
+    flex: none;
+    min-height: 100svh;
+    overflow: visible;
+  }
+
   .editie-03 .crepe-circle {
-    width: min(62vw, 58svh);
+    display: none;
+  }
+
+  .editie-03 .painting-instructions {
+    top: 8%;
+    width: 100%;
+    padding: 0;
+    color: #dd61af;
+    font-size: clamp(1rem, 4vw, 1.25rem);
+    white-space: nowrap;
   }
 
   .editie-03 .ingredient-butter {
-    left: 4%;
-    width: 21vw;
+    top: 19%;
+    left: 11%;
+    width: 30vw;
   }
 
   .editie-03 .ingredient-powdered-sugar {
-    right: 4%;
-    width: 20vw;
+    top: 30%;
+    right: 15%;
+    width: 27vw;
   }
 
   .editie-03 .ingredient-blueberries {
-    left: 2%;
-    width: 22vw;
+    top: 43%;
+    left: 8%;
+    width: 28vw;
   }
 
   .editie-03 .ingredient-brown-sugar {
-    right: 2%;
-    width: 23vw;
+    top: 56%;
+    right: 5%;
+    width: 32vw;
   }
 
   .editie-03 .ingredient-jam {
-    left: 7%;
-    width: 19vw;
+    top: 63%;
+    bottom: auto;
+    left: 15%;
+    width: 26vw;
   }
 
   .editie-03 .ingredient-chocolate-spread {
-    right: 6%;
-    width: 21vw;
+    top: 78%;
+    right: 23%;
+    bottom: auto;
+    width: 29vw;
+  }
+
+  .editie-03 .ingredient-popup {
+    position: fixed;
+    inset: 50% auto auto 50%;
+    box-sizing: border-box;
+    width: min(84vw, 28rem);
+    max-width: none;
+    max-height: 85svh;
+    margin: 0;
+    padding: 2.5rem 1.25rem 1.25rem;
+    border: 0;
+    border-radius: 1rem;
+    background: #fff;
+    box-shadow: 0 0.5rem 2rem rgb(0 0 0 / 18%);
+    transform: translate(-50%, -50%);
+  }
+
+  .editie-03 .ingredient-popup::backdrop {
+    background: rgb(0 0 0 / 45%);
+  }
+
+  .editie-03 .ingredient-popup h2 {
+    margin: 0 0 1rem;
+    color: #dd61af;
+    font-size: 1.2rem;
+    text-align: center;
+  }
+
+  .editie-03 .ingredient-popup-close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.65rem;
+    padding: 0.2rem 0.5rem;
+    border: 0;
+    background: transparent;
+    color: #555;
+    font-size: 1.75rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .editie-03 .ingredient-popup-photo {
+    display: grid;
+    min-height: min(55svh, 22rem);
+    place-items: center;
+    border: 1px dashed #dd61af;
+    border-radius: 0.5rem;
+    background: #fffafd;
+  }
+
+  .editie-03 footer {
+    padding: 1rem;
   }
 }
 

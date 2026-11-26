@@ -1,19 +1,48 @@
 const crepe = document.querySelector(".crepe-circle");
 const ingredients = document.querySelectorAll(".ingredient[data-emoji]");
 const instructions = document.querySelector(".painting-instructions");
+const ingredientPopup = document.querySelector(".ingredient-popup");
 
 if (crepe && instructions && ingredients.length > 0) {
   let selectedEmoji = "";
   let paintingPointerId = null;
   let lastStamp = null;
+  const mobileLayout = window.matchMedia("(max-width: 600px)");
+
+  if (ingredientPopup) {
+    const popupTitle = ingredientPopup.querySelector("#ingredient-popup-title");
+    const closeButton = ingredientPopup.querySelector(".ingredient-popup-close");
+
+    ingredients.forEach((ingredient) => {
+      ingredient.addEventListener("click", () => {
+        if (!mobileLayout.matches) {
+          return;
+        }
+
+        popupTitle.textContent = ingredient.querySelector("img").alt;
+        ingredientPopup.showModal();
+      });
+    });
+
+    closeButton.addEventListener("click", () => ingredientPopup.close());
+    ingredientPopup.addEventListener("click", (event) => {
+      if (event.target === ingredientPopup) {
+        ingredientPopup.close();
+      }
+    });
+  }
 
   ingredients.forEach((ingredient) => {
     ingredient.addEventListener("click", () => {
+      if (mobileLayout.matches) {
+        return;
+      }
+
       selectedEmoji = ingredient.dataset.emoji;
       ingredients.forEach((item) => {
         item.setAttribute("aria-pressed", String(item === ingredient));
       });
-      instructions.textContent = ` ${ingredient.querySelector("img").alt}sleep over de crêpe om te schilderen.`;
+      instructions.textContent = `${ingredient.querySelector("img").alt}sleep over de crêpe om te schilderen.`;
     });
   });
 
