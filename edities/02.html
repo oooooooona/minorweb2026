@@ -6,28 +6,328 @@
 <meta name="theme-color" content="#f7e6fa">
 <title>editie 02 - tiramisu</title>
 <link rel="stylesheet" href="../style.css">
+
+<style>
+  /* ---------- editie 02: alleen voor deze pagina ---------- */
+  .editie-02 {
+    margin: 0;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+    background: #f7e6fa;
+    cursor: none;                 /* je cursor is het mes */
+    overscroll-behavior: none;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  #doek {
+    display: block;
+    width: 100%;
+    height: 100%;
+    cursor: none;
+    touch-action: none;           /* slepen scrolt de pagina niet */
+  }
+
+  /* het mes: de punt zit precies op de plek van je cursor */
+  .mes {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 170px;
+    height: 44px;
+    transform-origin: 2px 32px;
+    pointer-events: none;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity .15s ease;
+    filter: drop-shadow(0 3px 3px rgba(60, 20, 20, .3));
+  }
+  .mes.zichtbaar { opacity: 1; }
+  .mes svg { display: block; }
+
+  .verborgen {
+    position: absolute; width: 1px; height: 1px; overflow: hidden;
+    clip-path: inset(50%); white-space: nowrap;
+  }
+</style>
 </head>
 
 <body class="editie-02">
 
-<main>
-  <div class="tiramisu-layout" role="img" aria-label="Zes overlappende stukken tiramisu in twee rijen">
-    <img class="piece piece-1" src="../beeld/tiramisupiece6.png" alt="" aria-hidden="true">
-    <img class="piece piece-2" src="../beeld/tiramisupiece6.png" alt="" aria-hidden="true">
-    <img class="piece piece-3" src="../beeld/tiramisupiece6.png" alt="" aria-hidden="true">
-    <img class="piece piece-4" src="../beeld/tiramisupiece6.png" alt="" aria-hidden="true">
-    <img class="piece piece-5" src="../beeld/tiramisupiece6.png" alt="" aria-hidden="true">
-    <img class="piece piece-6" src="../beeld/tiramisupiece6.png" alt="" aria-hidden="true">
-  </div>
-</main>
+<h1 class="verborgen">een groot stuk tiramisu dat je in stukjes snijdt</h1>
+
+<canvas id="doek" role="img"
+        aria-label="Een groot stuk tiramisu. Sleep met het mes over het stuk om het door te snijden."></canvas>
+
+<div class="mes" aria-hidden="true">
+  <svg viewBox="0 0 170 44" width="170" height="44">
+    <defs>
+      <linearGradient id="staal" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#f6f8fa"/>
+        <stop offset=".55" stop-color="#cdd3d8"/>
+        <stop offset="1" stop-color="#8e969d"/>
+      </linearGradient>
+    </defs>
+    <path d="M2 32 C 30 8, 70 6, 104 9 L104 32 Z" fill="url(#staal)" stroke="#6f777d" stroke-width="1"/>
+    <rect x="102" y="9" width="5" height="23" fill="#b9a36a"/>
+    <rect x="106" y="9" width="62" height="23" rx="7" fill="#3a2a20"/>
+    <circle cx="126" cy="20.5" r="2.4" fill="#d9c38a"/>
+    <circle cx="148" cy="20.5" r="2.4" fill="#d9c38a"/>
+  </svg>
+</div>
 
 <footer>
   <a href="../index.html">overzicht</a>
 </footer>
 
 <script>
+  // ---------- instellingen ----------
+  // Het zichtbare deel van tiramisu_big.png (de rest is transparant)
+  const BRON = { x0: 17, y0: 35, x1: 938, y1: 649 };
+  const AFBEELDING = "../beeld/tiramisu big.png";
 
+  const MIN_OPPERVLAK = 80;     // kleiner dan dit kan niet meer doorgesneden worden
+  const MIN_SNEDE = 6;          // kortste snede in pixels
+  const MAX_STUKKEN = 1800;     // daarboven verdwijnen de allerkleinste stukjes
+  const KRACHT = matchMedia("(prefers-reduced-motion: reduce)").matches ? 0.35 : 1;
+  const MES_HOEK = -28, MES_HOEK_SNIJDEN = -42;
+
+  // ---------- opzet ----------
+  const doek = document.getElementById("doek");
+  const ctx = doek.getContext("2d");
+  const mes = document.querySelector(".mes");
+  const img = new Image();
+
+  let W = 0, H = 0, dpr = 1, schaal = 1;
+  let stukken = [];
+  let slag = null;              // de snede die je nu maakt: { A:[x,y], B:[x,y] }
+  let vuil = true;              // moet er opnieuw getekend worden?
+  let mesHoek = MES_HOEK;
+
+  function pasFormaatAan() {
+    dpr = window.devicePixelRatio || 1;
+    W = window.innerWidth;
+    H = window.innerHeight;
+    doek.width = Math.round(W * dpr);
+    doek.height = Math.round(H * dpr);
+    vuil = true;
+  }
+
+  // Elk stuk: een veelhoek in "eigen" coordinaten (poly), met draaipunt (cx, cy)
+  // dat op wereldplek (px, py) staat, gedraaid over hoek a.
+  function naarWereld(s, x, y) {
+    const dx = x - s.cx, dy = y - s.cy, c = Math.cos(s.a), si = Math.sin(s.a);
+    return [s.px + dx * c - dy * si, s.py + dx * si + dy * c];
+  }
+  function naarLokaal(s, X, Y) {
+    const dx = X - s.px, dy = Y - s.py, c = Math.cos(s.a), si = Math.sin(s.a);
+    return [s.cx + dx * c + dy * si, s.cy - dx * si + dy * c];
+  }
+
+  function oppervlak(p) {
+    let o = 0;
+    for (let i = 0; i < p.length; i++) {
+      const [x1, y1] = p[i], [x2, y2] = p[(i + 1) % p.length];
+      o += x1 * y2 - x2 * y1;
+    }
+    return Math.abs(o) / 2;
+  }
+  function zwaartepunt(p) {
+    let a = 0, cx = 0, cy = 0;
+    for (let i = 0; i < p.length; i++) {
+      const [x1, y1] = p[i], [x2, y2] = p[(i + 1) % p.length];
+      const k = x1 * y2 - x2 * y1;
+      a += k; cx += (x1 + x2) * k; cy += (y1 + y2) * k;
+    }
+    if (Math.abs(a) < 1e-6) {
+      return [p.reduce((s, q) => s + q[0], 0) / p.length, p.reduce((s, q) => s + q[1], 0) / p.length];
+    }
+    return [cx / (3 * a), cy / (3 * a)];
+  }
+
+  function maakBeginstuk() {
+    schaal = Math.min(1.3, (W * 0.78) / (BRON.x1 - BRON.x0), (H * 0.78) / (BRON.y1 - BRON.y0));
+    const poly = [
+      [BRON.x0 * schaal, BRON.y0 * schaal], [BRON.x1 * schaal, BRON.y0 * schaal],
+      [BRON.x1 * schaal, BRON.y1 * schaal], [BRON.x0 * schaal, BRON.y1 * schaal],
+    ];
+    const [cx, cy] = zwaartepunt(poly);
+    stukken = [{ poly, cx, cy, px: W / 2, py: H / 2, a: 0, vx: 0, vy: 0, w: 0, opp: oppervlak(poly) }];
+    vuil = true;
+  }
+
+  // ---------- snijden ----------
+  // Snijdt een (bolle) veelhoek met de lijn a-b. Geeft null als de snede
+  // het stuk niet helemaal doorkruist of als een helft te klein zou worden.
+  function splits(poly, a, b) {
+    const dx = b[0] - a[0], dy = b[1] - a[1];
+    const lenSq = dx * dx + dy * dy, len = Math.sqrt(lenSq);
+    const d = poly.map(p => {
+      const v = (dx * (p[1] - a[1]) - dy * (p[0] - a[0])) / len;
+      return v === 0 ? 1e-7 : v;
+    });
+    const pos = [], neg = [], snijpunten = [];
+    for (let i = 0; i < poly.length; i++) {
+      const j = (i + 1) % poly.length;
+      (d[i] > 0 ? pos : neg).push(poly[i]);
+      if (d[i] * d[j] < 0) {
+        const t = d[i] / (d[i] - d[j]);
+        const ip = [poly[i][0] + t * (poly[j][0] - poly[i][0]), poly[i][1] + t * (poly[j][1] - poly[i][1])];
+        pos.push(ip); neg.push(ip); snijpunten.push(ip);
+      }
+    }
+    if (snijpunten.length !== 2 || pos.length < 3 || neg.length < 3) return null;
+
+    // het mes moet er aan beide kanten helemaal doorheen gaan
+    for (const q of snijpunten) {
+      const u = ((q[0] - a[0]) * dx + (q[1] - a[1]) * dy) / lenSq;
+      if (u < 0 || u > 1) return null;
+    }
+    const korde = Math.hypot(snijpunten[0][0] - snijpunten[1][0], snijpunten[0][1] - snijpunten[1][1]);
+    if (korde < MIN_SNEDE) return null;
+    if (oppervlak(pos) < MIN_OPPERVLAK || oppervlak(neg) < MIN_OPPERVLAK) return null;
+
+    return { pos, neg, normaal: [-dy / len, dx / len] };   // wijst naar de "pos"-kant
+  }
+
+  function maakKind(ouder, poly, richting) {
+    const [cx, cy] = zwaartepunt(poly);
+    const [px, py] = naarWereld(ouder, cx, cy);
+    const snelheid = (260 + Math.random() * 260) * KRACHT;
+    return {
+      poly, cx, cy, px, py, a: ouder.a,
+      vx: ouder.vx + richting[0] * snelheid,
+      vy: ouder.vy + richting[1] * snelheid,
+      w: ouder.w + (Math.random() - 0.5) * 2 * KRACHT,
+      opp: oppervlak(poly),
+    };
+  }
+
+  function snijd(A, B) {
+    const nieuw = [];
+    let gesneden = false;
+    for (const s of stukken) {
+      const res = splits(s.poly, naarLokaal(s, A[0], A[1]), naarLokaal(s, B[0], B[1]));
+      if (!res) { nieuw.push(s); continue; }
+      gesneden = true;
+      const c = Math.cos(s.a), si = Math.sin(s.a);
+      const n = [res.normaal[0] * c - res.normaal[1] * si, res.normaal[0] * si + res.normaal[1] * c];
+      nieuw.push(maakKind(s, res.pos, n));
+      nieuw.push(maakKind(s, res.neg, [-n[0], -n[1]]));
+    }
+    if (!gesneden) return;
+    stukken = nieuw;
+    if (stukken.length > MAX_STUKKEN) {                 // eindeloos blijven snijden
+      stukken.sort((p, q) => q.opp - p.opp);
+      stukken.length = MAX_STUKKEN;
+    }
+    vuil = true;
+  }
+
+  // ---------- bewegen en tekenen ----------
+  function stap(dt) {
+    let beweegt = false;
+    const demp = Math.exp(-2.2 * dt), dempW = Math.exp(-2.6 * dt), m = 24;
+    for (const s of stukken) {
+      if (!(s.vx || s.vy || s.w)) continue;
+      s.px += s.vx * dt; s.py += s.vy * dt; s.a += s.w * dt;
+      s.vx *= demp; s.vy *= demp; s.w *= dempW;
+      if (s.px < m)          { s.px = m;     s.vx =  Math.abs(s.vx) * 0.5; }
+      else if (s.px > W - m) { s.px = W - m; s.vx = -Math.abs(s.vx) * 0.5; }
+      if (s.py < m)          { s.py = m;     s.vy =  Math.abs(s.vy) * 0.5; }
+      else if (s.py > H - m) { s.py = H - m; s.vy = -Math.abs(s.vy) * 0.5; }
+      if (Math.abs(s.vx) < 1 && Math.abs(s.vy) < 1 && Math.abs(s.w) < 0.02) s.vx = s.vy = s.w = 0;
+      beweegt = true;
+    }
+    return beweegt;
+  }
+
+  function pad(poly) {
+    ctx.beginPath();
+    ctx.moveTo(poly[0][0], poly[0][1]);
+    for (let i = 1; i < poly.length; i++) ctx.lineTo(poly[i][0], poly[i][1]);
+    ctx.closePath();
+  }
+
+  function teken() {
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, W, H);
+    for (const s of stukken) {
+      ctx.save();
+      ctx.translate(s.px, s.py);
+      ctx.rotate(s.a);
+      ctx.translate(-s.cx, -s.cy);
+
+      pad(s.poly);
+      ctx.clip();
+      ctx.shadowColor = "rgba(70, 30, 20, .22)";
+      ctx.shadowBlur = 8;
+      ctx.shadowOffsetX = 2;
+      ctx.shadowOffsetY = 4;
+      ctx.drawImage(img, 0, 0, img.naturalWidth * schaal, img.naturalHeight * schaal);
+      ctx.restore();
+    }
+
+    if (slag) {                                     // de snede terwijl je sleept
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.lineCap = "round";
+      ctx.beginPath(); ctx.moveTo(slag.A[0], slag.A[1]); ctx.lineTo(slag.B[0], slag.B[1]);
+      ctx.strokeStyle = "rgba(90, 42, 16, .35)"; ctx.lineWidth = 4; ctx.stroke();
+      ctx.strokeStyle = "rgba(255, 255, 255, .95)"; ctx.lineWidth = 1.5; ctx.stroke();
+    }
+  }
+
+  let laatste = 0;
+  function lus(t) {
+    const dt = Math.min(0.05, (t - laatste) / 1000 || 0);
+    laatste = t;
+    const beweegt = stap(dt);
+    if (beweegt || vuil || slag) { teken(); vuil = false; }
+    requestAnimationFrame(lus);
+  }
+
+  // ---------- het mes (je cursor) ----------
+  function plaatsMes(x, y) {
+    mes.style.transform = `translate(${x - 2}px, ${y - 32}px) rotate(${mesHoek}deg)`;
+  }
+
+  window.addEventListener("pointermove", (e) => {
+    mes.classList.add("zichtbaar");
+    plaatsMes(e.clientX, e.clientY);
+    if (slag) { slag.B = [e.clientX, e.clientY]; vuil = true; }
+  });
+  document.documentElement.addEventListener("pointerleave", () => {
+    if (!slag) mes.classList.remove("zichtbaar");
+  });
+
+  doek.addEventListener("pointerdown", (e) => {
+    doek.setPointerCapture(e.pointerId);
+    slag = { A: [e.clientX, e.clientY], B: [e.clientX, e.clientY] };
+    mesHoek = MES_HOEK_SNIJDEN;
+    mes.classList.add("zichtbaar");
+    plaatsMes(e.clientX, e.clientY);
+  });
+
+  function eindig(e, snij) {
+    if (!slag) return;
+    const { A } = slag, B = [e.clientX, e.clientY];
+    slag = null;
+    mesHoek = MES_HOEK;
+    plaatsMes(B[0], B[1]);
+    if (snij && Math.hypot(B[0] - A[0], B[1] - A[1]) > 14) snijd(A, B);
+    if (e.pointerType === "touch") setTimeout(() => mes.classList.remove("zichtbaar"), 350);
+    vuil = true;
+  }
+  doek.addEventListener("pointerup", (e) => eindig(e, true));
+  doek.addEventListener("pointercancel", (e) => eindig(e, false));
+
+  window.addEventListener("resize", pasFormaatAan);
+
+  // ---------- start ----------
+  pasFormaatAan();
+  img.onload = () => { maakBeginstuk(); requestAnimationFrame(lus); };
+  img.src = AFBEELDING;
 </script>
-
 </body>
 </html>
